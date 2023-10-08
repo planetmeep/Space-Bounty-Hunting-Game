@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e467de56092f84b993757c60e4ea95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMode: 0
+  shipController: {fileID: 642843837}
 --- !u!4 &53460541
 Transform:
   m_ObjectHideFlags: 0
@@ -396,6 +398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 642843836}
   - component: {fileID: 642843835}
+  - component: {fileID: 642843837}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Untagged
@@ -470,6 +473,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &642843837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642843834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80146c18f564a144aa7affb398ceb49f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
