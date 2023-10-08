@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 642843836}
   - component: {fileID: 642843835}
   - component: {fileID: 642843837}
+  - component: {fileID: 642843838}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: Untagged
@@ -485,6 +486,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80146c18f564a144aa7affb398ceb49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thrustPower: 35
+  rotationSpeed: 220
+  maxVelocity: 10
+--- !u!50 &642843838
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642843834}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

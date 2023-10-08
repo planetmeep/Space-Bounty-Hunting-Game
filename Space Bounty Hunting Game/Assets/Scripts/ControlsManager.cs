@@ -22,29 +22,36 @@ public class ControlsManager : MonoBehaviour
     private ShipController shipController;
 
     //Action Delegate
-    public Action onMoveForward;
-    public Action onTurnLeft;
-    public Action onTurnRight;
-    public Action onBackwards;
+    public Action onStartThrustForward;
+    public Action onStopThrustForward;
+    public Action onStartThrustBackward;
+    public Action onStopThrustBackward;
+    public Action onStartRotateLeft;
+    public Action onStopRotateLeft;
+    public Action onStartRotateRight;
+    public Action onStopRotateRight;
+   
 
     private void Awake()
-    {
-        // Initialize the input controls
-        controls = new PlayerControls();
+{
+    // Initialize the input controls
+    controls = new PlayerControls();
 
-        // Link the input actions to methods
-        controls.Gameplay.MoveForward.performed += ctx => MoveForward();
-        controls.Gameplay.TurnLeft.performed += ctx => TurnLeft();
-        controls.Gameplay.Backwards.performed += ctx => Backwards();
-        controls.Gameplay.TurnRight.performed += ctx => TurnRight();
+    // Link the input actions to methods
+    controls.Gameplay.MoveForward.started += ctx => onStartThrustForward?.Invoke();
+    controls.Gameplay.MoveForward.canceled += ctx => onStopThrustForward?.Invoke();
+    controls.Gameplay.Backwards.started += ctx => onStartThrustBackward?.Invoke();
+    controls.Gameplay.Backwards.canceled += ctx => onStopThrustBackward?.Invoke();
+    
+    controls.Gameplay.TurnLeft.started += ctx => onStartRotateLeft?.Invoke();
+    controls.Gameplay.TurnLeft.canceled += ctx => onStopRotateLeft?.Invoke();
+    controls.Gameplay.TurnRight.started += ctx => onStartRotateRight?.Invoke();
+    controls.Gameplay.TurnRight.canceled += ctx => onStopRotateRight?.Invoke();
 
-        SetMode(PlayerMode.Flying);  // Ensure actions are hooked up at start
-    }
+    SetMode(PlayerMode.Flying);  // Ensure actions are hooked up at start
+}
     public void SetMode(PlayerMode mode)
     {
-        Debug.Log("ShipController is: " + (shipController == null ? "NULL" : "Not NULL"));
-        Debug.Log("Mode is: " + " current mode is: " + currentMode);
-
         if (currentMode == mode)
         {
              Debug.Log("Exiting early since mode is the same.");
@@ -52,10 +59,16 @@ public class ControlsManager : MonoBehaviour
         }
 
         // Unsubscribe from all actions
-        onMoveForward -= shipController.MoveForward;
-        onTurnLeft -= shipController.TurnLeft;
-        onTurnRight -= shipController.TurnRight;
-        onBackwards -= shipController.Backwards;
+        
+        onStartRotateLeft -= shipController.StartRotateLeft;
+        onStopRotateLeft -= shipController.StopRotateLeft;
+        onStartRotateRight -= shipController.StartRotateRight;
+        onStopRotateRight -= shipController.StopRotateRight;
+        
+        onStartThrustForward -= shipController.StartThrustForward;
+        onStopThrustForward -= shipController.StopThrustForward;
+        onStartThrustBackward -= shipController.StartThrustBackward;
+        onStopThrustBackward -= shipController.StopThrustBackward;
         
 
         currentMode = mode;
@@ -63,12 +76,19 @@ public class ControlsManager : MonoBehaviour
         switch (mode)
         {
             case PlayerMode.Flying:
-                onMoveForward += shipController.MoveForward;
-                onTurnLeft += shipController.TurnLeft;
-                onTurnRight += shipController.TurnRight;
-                onBackwards += shipController.Backwards;
-                Debug.Log("Subscribed to ShipController methods");
-                break;
+           
+            onStartRotateLeft += shipController.StartRotateLeft;
+            onStopRotateLeft += shipController.StopRotateLeft;
+            onStartRotateRight += shipController.StartRotateRight;
+            onStopRotateRight += shipController.StopRotateRight;
+
+            onStartThrustForward += shipController.StartThrustForward;
+            onStopThrustForward += shipController.StopThrustForward;
+            onStartThrustBackward += shipController.StartThrustBackward;
+            onStopThrustBackward += shipController.StopThrustBackward;
+           
+           
+            break;
 
             case PlayerMode.Walking:
                 
@@ -76,28 +96,6 @@ public class ControlsManager : MonoBehaviour
         }
     }
 
-    // Methods called when each action is performed
-
-    private void MoveForward()
-    {
-        Debug.Log("ControlsManager: MoveForward Detected");
-        onMoveForward?.Invoke();
-    }
-
-    private void TurnLeft()
-    {
-        onTurnLeft?.Invoke();
-    }
-
-    private void Backwards()
-    {
-        onBackwards?.Invoke();
-    }
-
-    private void TurnRight()
-    {
-        onTurnRight?.Invoke();
-    }
 
     private void OnEnable()
     {
