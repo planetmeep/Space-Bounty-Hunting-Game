@@ -77,7 +77,6 @@ public class ShipController : MonoBehaviour
     }
     public void MainGuns()
     {
-        Debug.Log("PEW PEW");
         mainGuns.Shoot();
     }
 
