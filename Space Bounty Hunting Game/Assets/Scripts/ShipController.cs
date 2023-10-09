@@ -62,6 +62,8 @@ public class ShipController : MonoBehaviour
     {
         rb.velocity *= brakeFactor;
     }
+
+    
     public void UpdateMousePosition(Vector2 mousePosition)
     {
         // Convert mouse position to world position
