@@ -57,11 +57,16 @@ public class ShipController : MonoBehaviour
         rb.AddForce(thrustDirection * thrustPower, ForceMode2D.Force);
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
     }
+    public void MainGuns()
+    {
+        Debug.Log("PEW PEW");
+    }
 
     private void ApplyBrakes()
     {
         rb.velocity *= brakeFactor;
     }
+    
     public void UpdateMousePosition(Vector2 mousePosition)
     {
         // Convert mouse position to world position

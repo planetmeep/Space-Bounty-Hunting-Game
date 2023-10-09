@@ -26,6 +26,7 @@ public class ControlsManager : MonoBehaviour
     public Action onStopThrustForward; 
     public Action onStartThrustBackward;
     public Action onStopThrustBackward;
+    public Action onMainGun;
     // Delegate and Field for Mouse Position
     public Action<Vector2> onReceiveMousePosition;
     private Vector2 currentMousePosition;
@@ -43,8 +44,9 @@ public class ControlsManager : MonoBehaviour
         controls.Gameplay.MoveForward.canceled += ctx => onStopThrustForward?.Invoke();
         controls.Gameplay.Backwards.started += ctx => onStartThrustBackward?.Invoke();
         controls.Gameplay.Backwards.canceled += ctx => onStopThrustBackward?.Invoke();
-        // Set up the MousePosition action
-        controls.Gameplay.MousePosition.performed += ctx => ReceiveMousePosition(ctx.ReadValue<Vector2>());
+   
+
+        controls.Gameplay.Shoot.performed += ctx => onMainGun?.Invoke();
 
         SetMode(PlayerMode.Flying);  // Ensure actions are hooked up at start
 
@@ -64,6 +66,7 @@ public class ControlsManager : MonoBehaviour
         onStartThrustBackward -= shipController.StartBraking;
         onStopThrustBackward -= shipController.StopBraking;
         onReceiveMousePosition -= shipController.UpdateMousePosition;
+        //onMainGun -= shipController.MainGun;
         
 
         currentMode = mode;
@@ -76,6 +79,7 @@ public class ControlsManager : MonoBehaviour
             onStopThrustForward += shipController.StopThrustForward;
             onStartThrustBackward += shipController.StartBraking;
             onStopThrustBackward += shipController.StopBraking;
+            //onMainGun += shipController.MainGun;
            
            onReceiveMousePosition += shipController.UpdateMousePosition;
             break;
@@ -84,6 +88,14 @@ public class ControlsManager : MonoBehaviour
                 
                 break;
         }
+    }
+    private void Update()
+    {
+        // Continuously get the mouse position and invoke the associated actions
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        ReceiveMousePosition(mousePos);
+        Debug.Log(mousePos);
+        
     }
      //Sets and invokes the mouse position action
     private void ReceiveMousePosition(Vector2 mousePosition)
