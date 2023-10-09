@@ -15,15 +15,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TurnLeft",
-                    "type": "Button",
-                    "id": "e03758ae-0264-4f3c-9356-44fba437e411",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Backwards",
                     "type": "Button",
                     "id": "10be07e9-4eeb-4b06-bc36-1b857d9a4707",
@@ -33,13 +24,31 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TurnRight",
+                    "name": "Left",
                     "type": "Button",
-                    "id": "5ebbac41-b8a7-49d8-8e13-17587aefd456",
+                    "id": "d92461f3-4314-4932-ab99-63d64be92082",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Right",
+                    "type": "Button",
+                    "id": "db4fc7a4-c734-4752-8a06-fba03d224f07",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "2e16fc01-8f5d-427d-b239-34958ad5b537",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -56,17 +65,6 @@
                 },
                 {
                     "name": "",
-                    "id": "9cee495c-ad1a-4549-a3ae-1389d3bcd154",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TurnLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0d5e3168-5d89-466a-a772-9441f4c0af32",
                     "path": "<Keyboard>/s",
                     "interactions": "",
@@ -78,12 +76,34 @@
                 },
                 {
                     "name": "",
-                    "id": "dbf6c060-f943-477b-af89-a57d847dd9ef",
+                    "id": "b5dfecdc-3e7b-4e0b-a98c-f645e4f33338",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fe7a2f8-1e16-45fa-98af-48f4059c9211",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TurnRight",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f33b09e-69ec-45ad-9f44-cb8e4d58a1ef",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

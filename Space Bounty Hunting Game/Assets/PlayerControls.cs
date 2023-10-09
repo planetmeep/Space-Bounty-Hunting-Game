@@ -37,15 +37,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TurnLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""e03758ae-0264-4f3c-9356-44fba437e411"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Backwards"",
                     ""type"": ""Button"",
                     ""id"": ""10be07e9-4eeb-4b06-bc36-1b857d9a4707"",
@@ -55,13 +46,31 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TurnRight"",
+                    ""name"": ""Left"",
                     ""type"": ""Button"",
-                    ""id"": ""5ebbac41-b8a7-49d8-8e13-17587aefd456"",
+                    ""id"": ""d92461f3-4314-4932-ab99-63d64be92082"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""db4fc7a4-c734-4752-8a06-fba03d224f07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""2e16fc01-8f5d-427d-b239-34958ad5b537"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -78,17 +87,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9cee495c-ad1a-4549-a3ae-1389d3bcd154"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TurnLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""0d5e3168-5d89-466a-a772-9441f4c0af32"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
@@ -100,12 +98,34 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""dbf6c060-f943-477b-af89-a57d847dd9ef"",
+                    ""id"": ""b5dfecdc-3e7b-4e0b-a98c-f645e4f33338"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fe7a2f8-1e16-45fa-98af-48f4059c9211"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TurnRight"",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f33b09e-69ec-45ad-9f44-cb8e4d58a1ef"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -117,9 +137,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_MoveForward = m_Gameplay.FindAction("MoveForward", throwIfNotFound: true);
-        m_Gameplay_TurnLeft = m_Gameplay.FindAction("TurnLeft", throwIfNotFound: true);
         m_Gameplay_Backwards = m_Gameplay.FindAction("Backwards", throwIfNotFound: true);
-        m_Gameplay_TurnRight = m_Gameplay.FindAction("TurnRight", throwIfNotFound: true);
+        m_Gameplay_Left = m_Gameplay.FindAction("Left", throwIfNotFound: true);
+        m_Gameplay_Right = m_Gameplay.FindAction("Right", throwIfNotFound: true);
+        m_Gameplay_MousePosition = m_Gameplay.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,17 +203,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_MoveForward;
-    private readonly InputAction m_Gameplay_TurnLeft;
     private readonly InputAction m_Gameplay_Backwards;
-    private readonly InputAction m_Gameplay_TurnRight;
+    private readonly InputAction m_Gameplay_Left;
+    private readonly InputAction m_Gameplay_Right;
+    private readonly InputAction m_Gameplay_MousePosition;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
         public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveForward => m_Wrapper.m_Gameplay_MoveForward;
-        public InputAction @TurnLeft => m_Wrapper.m_Gameplay_TurnLeft;
         public InputAction @Backwards => m_Wrapper.m_Gameplay_Backwards;
-        public InputAction @TurnRight => m_Wrapper.m_Gameplay_TurnRight;
+        public InputAction @Left => m_Wrapper.m_Gameplay_Left;
+        public InputAction @Right => m_Wrapper.m_Gameplay_Right;
+        public InputAction @MousePosition => m_Wrapper.m_Gameplay_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -205,15 +228,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveForward.started += instance.OnMoveForward;
             @MoveForward.performed += instance.OnMoveForward;
             @MoveForward.canceled += instance.OnMoveForward;
-            @TurnLeft.started += instance.OnTurnLeft;
-            @TurnLeft.performed += instance.OnTurnLeft;
-            @TurnLeft.canceled += instance.OnTurnLeft;
             @Backwards.started += instance.OnBackwards;
             @Backwards.performed += instance.OnBackwards;
             @Backwards.canceled += instance.OnBackwards;
-            @TurnRight.started += instance.OnTurnRight;
-            @TurnRight.performed += instance.OnTurnRight;
-            @TurnRight.canceled += instance.OnTurnRight;
+            @Left.started += instance.OnLeft;
+            @Left.performed += instance.OnLeft;
+            @Left.canceled += instance.OnLeft;
+            @Right.started += instance.OnRight;
+            @Right.performed += instance.OnRight;
+            @Right.canceled += instance.OnRight;
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -221,15 +247,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveForward.started -= instance.OnMoveForward;
             @MoveForward.performed -= instance.OnMoveForward;
             @MoveForward.canceled -= instance.OnMoveForward;
-            @TurnLeft.started -= instance.OnTurnLeft;
-            @TurnLeft.performed -= instance.OnTurnLeft;
-            @TurnLeft.canceled -= instance.OnTurnLeft;
             @Backwards.started -= instance.OnBackwards;
             @Backwards.performed -= instance.OnBackwards;
             @Backwards.canceled -= instance.OnBackwards;
-            @TurnRight.started -= instance.OnTurnRight;
-            @TurnRight.performed -= instance.OnTurnRight;
-            @TurnRight.canceled -= instance.OnTurnRight;
+            @Left.started -= instance.OnLeft;
+            @Left.performed -= instance.OnLeft;
+            @Left.canceled -= instance.OnLeft;
+            @Right.started -= instance.OnRight;
+            @Right.performed -= instance.OnRight;
+            @Right.canceled -= instance.OnRight;
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -250,8 +279,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IGameplayActions
     {
         void OnMoveForward(InputAction.CallbackContext context);
-        void OnTurnLeft(InputAction.CallbackContext context);
         void OnBackwards(InputAction.CallbackContext context);
-        void OnTurnRight(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }

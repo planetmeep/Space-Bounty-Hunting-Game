@@ -23,33 +23,33 @@ public class ControlsManager : MonoBehaviour
 
     //Action Delegate
     public Action onStartThrustForward;
-    public Action onStopThrustForward;
+    public Action onStopThrustForward; 
     public Action onStartThrustBackward;
     public Action onStopThrustBackward;
-    public Action onStartRotateLeft;
-    public Action onStopRotateLeft;
-    public Action onStartRotateRight;
-    public Action onStopRotateRight;
+    // Delegate and Field for Mouse Position
+    public Action<Vector2> onReceiveMousePosition;
+    private Vector2 currentMousePosition;
+  
+ 
    
 
     private void Awake()
-{
-    // Initialize the input controls
-    controls = new PlayerControls();
+    {
+        // Initialize the input controls
+        controls = new PlayerControls();
 
-    // Link the input actions to methods
-    controls.Gameplay.MoveForward.started += ctx => onStartThrustForward?.Invoke();
-    controls.Gameplay.MoveForward.canceled += ctx => onStopThrustForward?.Invoke();
-    controls.Gameplay.Backwards.started += ctx => onStartThrustBackward?.Invoke();
-    controls.Gameplay.Backwards.canceled += ctx => onStopThrustBackward?.Invoke();
-    
-    controls.Gameplay.TurnLeft.started += ctx => onStartRotateLeft?.Invoke();
-    controls.Gameplay.TurnLeft.canceled += ctx => onStopRotateLeft?.Invoke();
-    controls.Gameplay.TurnRight.started += ctx => onStartRotateRight?.Invoke();
-    controls.Gameplay.TurnRight.canceled += ctx => onStopRotateRight?.Invoke();
+        // Link the input actions to methods
+        controls.Gameplay.MoveForward.started += ctx => onStartThrustForward?.Invoke();
+        controls.Gameplay.MoveForward.canceled += ctx => onStopThrustForward?.Invoke();
+        controls.Gameplay.Backwards.started += ctx => onStartThrustBackward?.Invoke();
+        controls.Gameplay.Backwards.canceled += ctx => onStopThrustBackward?.Invoke();
+        // Set up the MousePosition action
+        controls.Gameplay.MousePosition.performed += ctx => ReceiveMousePosition(ctx.ReadValue<Vector2>());
 
-    SetMode(PlayerMode.Flying);  // Ensure actions are hooked up at start
-}
+        SetMode(PlayerMode.Flying);  // Ensure actions are hooked up at start
+
+        
+    }
     public void SetMode(PlayerMode mode)
     {
         if (currentMode == mode)
@@ -59,16 +59,11 @@ public class ControlsManager : MonoBehaviour
         }
 
         // Unsubscribe from all actions
-        
-        onStartRotateLeft -= shipController.StartRotateLeft;
-        onStopRotateLeft -= shipController.StopRotateLeft;
-        onStartRotateRight -= shipController.StartRotateRight;
-        onStopRotateRight -= shipController.StopRotateRight;
-        
         onStartThrustForward -= shipController.StartThrustForward;
         onStopThrustForward -= shipController.StopThrustForward;
         onStartThrustBackward -= shipController.StartThrustBackward;
         onStopThrustBackward -= shipController.StopThrustBackward;
+        onReceiveMousePosition -= shipController.UpdateMousePosition;
         
 
         currentMode = mode;
@@ -76,24 +71,31 @@ public class ControlsManager : MonoBehaviour
         switch (mode)
         {
             case PlayerMode.Flying:
-           
-            onStartRotateLeft += shipController.StartRotateLeft;
-            onStopRotateLeft += shipController.StopRotateLeft;
-            onStartRotateRight += shipController.StartRotateRight;
-            onStopRotateRight += shipController.StopRotateRight;
 
             onStartThrustForward += shipController.StartThrustForward;
             onStopThrustForward += shipController.StopThrustForward;
             onStartThrustBackward += shipController.StartThrustBackward;
             onStopThrustBackward += shipController.StopThrustBackward;
            
-           
+           onReceiveMousePosition += shipController.UpdateMousePosition;
             break;
 
             case PlayerMode.Walking:
                 
                 break;
         }
+    }
+     //Sets and invokes the mouse position action
+    private void ReceiveMousePosition(Vector2 mousePosition)
+    {
+        currentMousePosition = mousePosition;
+        onReceiveMousePosition?.Invoke(currentMousePosition);
+    }
+    
+    //Get the mouse position directly instead of through the delegate
+    public Vector2 GetMousePosition()
+    {
+        return currentMousePosition;
     }
 
 
