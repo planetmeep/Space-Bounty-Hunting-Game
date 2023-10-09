@@ -20,7 +20,8 @@ public class ControlsManager : MonoBehaviour
     private PlayerControls controls;
     [SerializeField]
     private ShipController shipController;
-
+    [SerializeField]
+    private Crosshair crosshair;
     //Action Delegate
     public Action onStartThrustForward;
     public Action onStopThrustForward; 
@@ -66,8 +67,7 @@ public class ControlsManager : MonoBehaviour
         onStartThrustBackward -= shipController.StartBraking;
         onStopThrustBackward -= shipController.StopBraking;
         onReceiveMousePosition -= shipController.UpdateMousePosition;
-        //onMainGun -= shipController.MainGun;
-        
+        onReceiveMousePosition -= crosshair.UpdateCrosshairPosition;
 
         currentMode = mode;
 
@@ -81,8 +81,9 @@ public class ControlsManager : MonoBehaviour
             onStopThrustBackward += shipController.StopBraking;
             //onMainGun += shipController.MainGun;
            
-           onReceiveMousePosition += shipController.UpdateMousePosition;
-            break;
+            onReceiveMousePosition += shipController.UpdateMousePosition;
+            onReceiveMousePosition += crosshair.UpdateCrosshairPosition;
+                break;
 
             case PlayerMode.Walking:
                 
