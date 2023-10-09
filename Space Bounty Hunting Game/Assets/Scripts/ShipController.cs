@@ -7,31 +7,30 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float thrustPower = 35f;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float maxVelocity = 10f;
+    [SerializeField] private float brakeFactor = 0.9f;  // Multiplier to reduce speed. Value between 0 (full stop) and 1 (no braking).
 
     private Rigidbody2D rb;
 
     private bool thrustForward = false;
-    private bool thrustBackward = false;
+    private bool applyBrakes = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-     private void FixedUpdate()
+    private void FixedUpdate()
     {
-        
         if (thrustForward)
         {
             ThrustForward();
         }
-        if (thrustBackward)
+        if (applyBrakes)
         {
-            ThrustBackward();
+            ApplyBrakes();
         }
     }
 
-    
     public void StartThrustForward()
     {
         thrustForward = true;
@@ -42,14 +41,14 @@ public class ShipController : MonoBehaviour
         thrustForward = false;
     }
 
-    public void StartThrustBackward()
+    public void StartBraking()
     {
-        thrustBackward = true;
+        applyBrakes = true;
     }
 
-    public void StopThrustBackward()
+    public void StopBraking()
     {
-        thrustBackward = false;
+        applyBrakes = false;
     }
 
     private void ThrustForward()
@@ -59,11 +58,9 @@ public class ShipController : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
-    private void ThrustBackward()
+    private void ApplyBrakes()
     {
-        Vector2 thrustDirection = -transform.up;
-        rb.AddForce(thrustDirection * thrustPower, ForceMode2D.Force);
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
+        rb.velocity *= brakeFactor;
     }
     public void UpdateMousePosition(Vector2 mousePosition)
     {

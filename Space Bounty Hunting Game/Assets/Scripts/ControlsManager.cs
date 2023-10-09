@@ -61,8 +61,8 @@ public class ControlsManager : MonoBehaviour
         // Unsubscribe from all actions
         onStartThrustForward -= shipController.StartThrustForward;
         onStopThrustForward -= shipController.StopThrustForward;
-        onStartThrustBackward -= shipController.StartThrustBackward;
-        onStopThrustBackward -= shipController.StopThrustBackward;
+        onStartThrustBackward -= shipController.StartBraking;
+        onStopThrustBackward -= shipController.StopBraking;
         onReceiveMousePosition -= shipController.UpdateMousePosition;
         
 
@@ -74,8 +74,8 @@ public class ControlsManager : MonoBehaviour
 
             onStartThrustForward += shipController.StartThrustForward;
             onStopThrustForward += shipController.StopThrustForward;
-            onStartThrustBackward += shipController.StartThrustBackward;
-            onStopThrustBackward += shipController.StopThrustBackward;
+            onStartThrustBackward += shipController.StartBraking;
+            onStopThrustBackward += shipController.StopBraking;
            
            onReceiveMousePosition += shipController.UpdateMousePosition;
             break;
