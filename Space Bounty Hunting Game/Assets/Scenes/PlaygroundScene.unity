@@ -744,6 +744,7 @@ MonoBehaviour:
   maxVelocity: 7
   brakeFactor: 0.9
   mainGuns: {fileID: 642843839}
+  lateralThrustPower: 3
 --- !u!50 &642843838
 Rigidbody2D:
   serializedVersion: 4

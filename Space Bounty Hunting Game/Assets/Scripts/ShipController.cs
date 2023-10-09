@@ -10,11 +10,14 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float brakeFactor = 0.9f;  // Multiplier to reduce speed. Value between 0 (full stop) and 1 (no braking).
     [SerializeField] public MainGuns mainGuns;
     private bool isShooting = false;
+    [SerializeField] private float lateralThrustPower = 3f;
 
     private Rigidbody2D rb;
 
     private bool thrustForward = false;
     private bool applyBrakes = false;
+    private bool thrustLeft = false;
+    private bool thrustRight = false;
 
     private void Awake()
     {
@@ -39,6 +42,15 @@ public class ShipController : MonoBehaviour
         if (applyBrakes)
         {
             ApplyBrakes();
+        }
+         if (thrustLeft)
+        {
+            ApplyLeftThrust();
+        }
+
+        if (thrustRight)
+        {
+            ApplyRightThrust();
         }
     }
     private void Update()
@@ -109,4 +121,37 @@ public class ShipController : MonoBehaviour
         // Set rotation
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
     }
+   public void StartLeftThrust()
+{
+    thrustLeft = true;
+}
+
+public void StopLeftThrust()
+{
+    thrustLeft = false;
+}
+
+public void StartRightThrust()
+{
+    thrustRight = true;
+}
+
+public void StopRightThrust()
+{
+    thrustRight = false;
+}
+
+private void ApplyLeftThrust()
+{
+    Vector2 thrustDirection = -transform.right; // Negative right direction is left
+    rb.AddForce(thrustDirection * lateralThrustPower, ForceMode2D.Force);
+    rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
+}
+
+private void ApplyRightThrust()
+{
+    Vector2 thrustDirection = transform.right;
+    rb.AddForce(thrustDirection * lateralThrustPower, ForceMode2D.Force);
+    rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
+}
 }

@@ -27,6 +27,10 @@ public class ControlsManager : MonoBehaviour
     public Action onStopThrustForward; 
     public Action onStartThrustBackward;
     public Action onStopThrustBackward;
+    public Action onStartLeftThrust;
+    public Action onStopLeftThrust;
+    public Action onStartRightThrust;
+    public Action onStopRightThrust;
     
     // Delegate and Field for Mouse Position
     public Action<Vector2> onReceiveMousePosition;
@@ -48,6 +52,10 @@ public class ControlsManager : MonoBehaviour
         controls.Gameplay.MoveForward.canceled += ctx => onStopThrustForward?.Invoke();
         controls.Gameplay.Backwards.started += ctx => onStartThrustBackward?.Invoke();
         controls.Gameplay.Backwards.canceled += ctx => onStopThrustBackward?.Invoke();
+        controls.Gameplay.Left.started += ctx => onStartLeftThrust?.Invoke();
+        controls.Gameplay.Left.canceled += ctx => onStopLeftThrust?.Invoke();
+        controls.Gameplay.Right.started += ctx => onStartRightThrust?.Invoke();
+        controls.Gameplay.Right.canceled += ctx => onStopRightThrust?.Invoke();
    
 
         controls.Gameplay.Shoot.started += ctx => onShootStarted?.Invoke();
@@ -74,6 +82,10 @@ public class ControlsManager : MonoBehaviour
         onReceiveMousePosition -= crosshair.UpdateCrosshairPosition;
         onShootStarted -= shipController.StartShooting;
         onShootStopped -= shipController.StopShooting;
+        onStartRightThrust -= shipController.StartRightThrust;
+        onStopRightThrust -= shipController.StopRightThrust;
+        onStartLeftThrust -= shipController.StartLeftThrust;
+        onStopLeftThrust -= shipController.StopLeftThrust;
 
         currentMode = mode;
 
@@ -87,6 +99,10 @@ public class ControlsManager : MonoBehaviour
             onStopThrustBackward += shipController.StopBraking;
             onShootStarted += shipController.StartShooting;
             onShootStopped += shipController.StopShooting;
+              onStartRightThrust += shipController.StartRightThrust;
+        onStopRightThrust += shipController.StopRightThrust;
+        onStartLeftThrust += shipController.StartLeftThrust;
+        onStopLeftThrust += shipController.StopLeftThrust;
            
             onReceiveMousePosition += shipController.UpdateMousePosition;
             onReceiveMousePosition += crosshair.UpdateCrosshairPosition;
