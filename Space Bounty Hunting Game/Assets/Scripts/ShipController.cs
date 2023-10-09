@@ -8,6 +8,8 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float maxVelocity = 10f;
     [SerializeField] private float brakeFactor = 0.9f;  // Multiplier to reduce speed. Value between 0 (full stop) and 1 (no braking).
+    [SerializeField] public MainGuns mainGuns;
+    private bool isShooting = false;
 
     private Rigidbody2D rb;
 
@@ -28,6 +30,13 @@ public class ShipController : MonoBehaviour
         if (applyBrakes)
         {
             ApplyBrakes();
+        }
+    }
+    private void Update()
+    {
+        if (isShooting)
+        {
+        MainGuns();
         }
     }
 
@@ -57,9 +66,19 @@ public class ShipController : MonoBehaviour
         rb.AddForce(thrustDirection * thrustPower, ForceMode2D.Force);
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
     }
+    public void StartShooting()
+    {
+        isShooting = true;
+    }
+
+    public void StopShooting()
+    {
+        isShooting = false;
+    }
     public void MainGuns()
     {
         Debug.Log("PEW PEW");
+        mainGuns.Shoot();
     }
 
     private void ApplyBrakes()
