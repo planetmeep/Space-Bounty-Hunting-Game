@@ -178,6 +178,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 769676971127717528, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 938235577106398598, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
       propertyPath: m_Name
       value: TinyAsteroid (3)
@@ -238,6 +242,10 @@ PrefabInstance:
     - target: {fileID: 1350614789255320057, guid: 23eb429745ad3794eb4a9003c0a81a40, type: 3}
       propertyPath: m_Name
       value: MediumAsteroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112105728270171263, guid: 23eb429745ad3794eb4a9003c0a81a40, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8300314346404479314, guid: 23eb429745ad3794eb4a9003c0a81a40, type: 3}
       propertyPath: m_LocalPosition.x
@@ -528,7 +536,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &601861121
 MonoBehaviour:
@@ -723,6 +731,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallAsteroid
       objectReference: {fileID: 0}
+    - target: {fileID: 3711855936116625689, guid: 7cd329df34d390c41a49946bc6d24bc2, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6413039093015898048, guid: 7cd329df34d390c41a49946bc6d24bc2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0779812
@@ -898,7 +910,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &642843839
 MonoBehaviour:
@@ -913,7 +925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2465975428538344710, guid: 7678b3cdd7e134d4baee896cfedf8fd6, type: 3}
-  bulletSpeed: 85
+  bulletSpeed: 70
   rateOfFire: 5
   maxBulletDistance: 50
   shipCollider: {fileID: 642843840}
@@ -1173,6 +1185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallAsteroid (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3711855936116625689, guid: 7cd329df34d390c41a49946bc6d24bc2, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6413039093015898048, guid: 7cd329df34d390c41a49946bc6d24bc2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0640643
@@ -1292,6 +1308,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 769676971127717528, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 938235577106398598, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
       propertyPath: m_Name
       value: TinyAsteroid (1)
@@ -1417,6 +1437,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 271396584679705968, guid: 4137cb44cf810e446afd119e50c57c08, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5360313312476711643, guid: 4137cb44cf810e446afd119e50c57c08, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.8355565
@@ -1474,6 +1498,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 769676971127717528, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 938235577106398598, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
       propertyPath: m_Name
       value: TinyAsteroid (2)
@@ -1531,6 +1559,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 769676971127717528, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 938235577106398598, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
       propertyPath: m_Name
       value: TinyAsteroid
@@ -1588,6 +1620,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 271396584679705968, guid: 4137cb44cf810e446afd119e50c57c08, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5360313312476711643, guid: 4137cb44cf810e446afd119e50c57c08, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5821748
@@ -1658,3 +1694,4 @@ SceneRoots:
   - {fileID: 472523609}
   - {fileID: 873705680}
   - {fileID: 2106246959}
+  - {fileID: 601861123}

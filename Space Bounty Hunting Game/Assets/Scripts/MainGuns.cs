@@ -22,17 +22,7 @@ public class MainGuns : MonoBehaviour
         if (Time.time - lastShootTime > 1/rateOfFire) // Check if enough time has passed since the last shot
         {
             AudioManager.instance.PlaySound("PlayerShipShot");
-
-            lastShootTime = Time.time;
-
-            // Create the bullet
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-
-            // Set its velocity, assuming transform.up is the front of the ship
-            bullet.GetComponent<Bullet>().SetupBullet(transform.up, bulletSpeed);
-
-            // Automatically destroy bullet after traveling its max distance
-            Destroy(bullet, maxBulletDistance / bulletSpeed);
+            FireBullet(transform.up, transform.rotation);
         }
     }
 
@@ -42,25 +32,24 @@ public class MainGuns : MonoBehaviour
         {
             // Calculate direction from gun to target
             Vector2 shootDirection = (targetPosition - (Vector2)transform.position).normalized;
-
-            FireBullet(shootDirection * bulletSpeed); 
+            Quaternion bulletRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.right, shootDirection) + 90);
+            FireBullet(shootDirection, bulletRotation); 
         }
     }
 
-    private void FireBullet(Vector2 velocity)
+    private void FireBullet(Vector2 direction, Quaternion bulletRotation)
     {
         lastShootTime = Time.time;
 
         // Create the bullet at a safe position
-        Vector2 spawnPosition = GetSafeSpawnPosition(velocity);
-        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+        Vector2 spawnPosition = GetSafeSpawnPosition(direction);
+        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, bulletRotation);
 
         // Get the projectile and rigidbody components only once
         Projectile projectile = bullet.GetComponent<Projectile>();
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-
-        // Set bullet velocity
-        rb.velocity = velocity;
+        rb.velocity = direction * bulletSpeed;
+        projectile.SetOwner(gameObject);
 
         // Automatically destroy bullet after traveling its max distance
         Destroy(bullet, maxBulletDistance / bulletSpeed);
