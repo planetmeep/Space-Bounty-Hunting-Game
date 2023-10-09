@@ -21,7 +21,18 @@ public class MainGuns : MonoBehaviour
     {
         if (Time.time - lastShootTime > 1/rateOfFire) // Check if enough time has passed since the last shot
         {
-            FireBullet(transform.up * bulletSpeed); // Assuming the forward direction of your ship is its "up" in 2D space
+            AudioManager.instance.PlaySound("PlayerShipShot");
+
+            lastShootTime = Time.time;
+
+            // Create the bullet
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+
+            // Set its velocity, assuming transform.up is the front of the ship
+            bullet.GetComponent<Bullet>().SetupBullet(transform.up, bulletSpeed);
+
+            // Automatically destroy bullet after traveling its max distance
+            Destroy(bullet, maxBulletDistance / bulletSpeed);
         }
     }
 

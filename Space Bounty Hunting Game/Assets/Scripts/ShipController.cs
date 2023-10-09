@@ -25,8 +25,17 @@ public class ShipController : MonoBehaviour
     {
         if (thrustForward)
         {
+            if (!AudioManager.instance.GetAudioSource("Thruster").isPlaying) 
+            {
+                AudioManager.instance.PlaySound("Thruster");
+            }
             ThrustForward();
         }
+        else 
+        {
+            AudioManager.instance.StopSound("Thruster");
+        }
+
         if (applyBrakes)
         {
             ApplyBrakes();
@@ -77,6 +86,7 @@ public class ShipController : MonoBehaviour
     }
     public void MainGuns()
     {
+        //Debug.Log("PEW PEW");
         mainGuns.Shoot();
     }
 
