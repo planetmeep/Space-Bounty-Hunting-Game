@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour, IHittable
     public MainGuns mainGuns;
     public float detectionRadius = 10f;  // The distance at which the enemy recognizes the player
     private Transform playerTransform;   // Reference to the player's transform
+    public GameObject explosionPrefab;
     public HitsoundMaterials hitsoundMaterial;
 
     private void Start()
@@ -25,7 +26,7 @@ public class EnemyController : MonoBehaviour, IHittable
         CheckAndAttackPlayer();
     }
 
-    public void OnHit(Projectile projectile) 
+    public void OnHit(Projectile projectile, Vector2 hitPoint) 
     {
         AudioManager.instance.PlayImpactSound(hitsoundMaterial);
         Debug.Log("HIT");
@@ -34,6 +35,8 @@ public class EnemyController : MonoBehaviour, IHittable
         if (health <= 0)
         {
             // Handle the death of the enemy
+            Instantiate(explosionPrefab, hitPoint, Quaternion.identity);
+            AudioManager.instance.ResetPlaySound("Explosion");
             Destroy(this.gameObject);
         }
     }

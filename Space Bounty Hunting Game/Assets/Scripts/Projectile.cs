@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
          IHittable hittable = collision.gameObject.GetComponent<IHittable>();
          if (hittable != null)
          {
-             hittable.OnHit(this);
+             hittable.OnHit(this, contactPosition);
          }
 
          // Destroy the bullet upon collision

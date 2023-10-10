@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604a74bc7f5682e4e9865667f428bacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 2196576137307728001, guid: c41533633c9d81546a50e35636735bb5, type: 3}
   asteroidPrefabs:
   - {fileID: 938235577106398598, guid: af19445405a90e84cb6106d9ef7f015c, type: 3}
   - {fileID: 1738071384240020603, guid: 7cd329df34d390c41a49946bc6d24bc2, type: 3}

@@ -14,6 +14,7 @@ public class Asteroid : MonoBehaviour, IHittable
     const float SMALL_EXPLOSION_RADIUS = 20f;
     const float ASTEROID_EXPLOSION_FORCE = 100f;
 
+    public GameObject explosionPrefab;
     public GameObject[] asteroidPrefabs;
     public Transform[] explosionAsteroidSpawns;
 
@@ -52,21 +53,22 @@ public class Asteroid : MonoBehaviour, IHittable
         Tiny = 0
     }
 
-    public void OnHit(Projectile projectile)
+    public void OnHit(Projectile projectile, Vector2 hitPoint)
     {
         AudioManager.instance.PlayImpactSound(hitsoundMaterial);
         asteroidHP -= projectile.damageValue;
         
         if (asteroidHP <= 0) 
         {
-            AsteroidDie();
+            AsteroidDie(hitPoint);
         }
     }
 
-    private void AsteroidDie() 
+    private void AsteroidDie(Vector2 hitPoint) 
     {
         Debug.Log((int)asteroidSize);
         AudioManager.instance.ResetPlaySound("Explosion");
+        Instantiate(explosionPrefab, hitPoint, Quaternion.identity);
         if ((int)asteroidSize > 0) 
         {
             foreach(Transform spawnPoint in explosionAsteroidSpawns) 
