@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    // Hit particle system prefab
+    public GameObject hitParticle;
     public GameObject owner;  // The game object that shot this projectile
     public float damageValue;
 
@@ -15,7 +17,10 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+         ContactPoint2D contactPoint = collision.GetContact(0);
+         Vector2 contactPosition = contactPoint.point; 
          Debug.Log("Bullet collided with: " + collision.gameObject.name);
+         Instantiate(hitParticle, contactPosition, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 180));
          IHittable hittable = collision.gameObject.GetComponent<IHittable>();
          if (hittable != null)
          {
