@@ -119,9 +119,9 @@ public class ShipController : MonoBehaviour
         
         // Calculate the rotation angle
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f; // Subtracting 90 degrees to adjust the rotation
-        
+
         // Set rotation
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        rb.MoveRotation(angle);
     }
    public void StartLeftThrust()
 {
