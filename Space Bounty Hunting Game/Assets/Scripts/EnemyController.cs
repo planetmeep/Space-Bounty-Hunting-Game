@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour, IHittable
     public MainGuns mainGuns;
     public float detectionRadius = 10f;  // The distance at which the enemy recognizes the player
     private Transform playerTransform;   // Reference to the player's transform
+    public HitsoundMaterials hitsoundMaterial;
 
     private void Start()
     {
@@ -26,8 +27,10 @@ public class EnemyController : MonoBehaviour, IHittable
 
     public void OnHit(Projectile projectile) 
     {
+        AudioManager.instance.PlayImpactSound(hitsoundMaterial);
         Debug.Log("HIT");
         health -= projectile.damageValue;
+
         if (health <= 0)
         {
             // Handle the death of the enemy

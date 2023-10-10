@@ -11,7 +11,7 @@ public class ShipController : MonoBehaviour
     [SerializeField] public MainGuns mainGuns;
     private bool isShooting = false;
     [SerializeField] private float lateralThrustPower = 3f;
-
+    [SerializeField] private ParticleSystem thrusterParticles;
     private Rigidbody2D rb;
 
     private bool thrustForward = false;
@@ -28,6 +28,7 @@ public class ShipController : MonoBehaviour
     {
         if (thrustForward)
         {
+            thrusterParticles.Play();
             if (!AudioManager.instance.GetAudioSource("Thruster").isPlaying) 
             {
                 AudioManager.instance.PlaySound("Thruster");
@@ -36,6 +37,7 @@ public class ShipController : MonoBehaviour
         }
         else 
         {
+            thrusterParticles.Stop();
             AudioManager.instance.StopSound("Thruster");
         }
 

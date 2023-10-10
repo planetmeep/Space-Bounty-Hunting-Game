@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8703228758980666787}
   - component: {fileID: 769676971127717528}
   - component: {fileID: 3390748238943211377}
+  - component: {fileID: 3379107054692393627}
   m_Layer: 0
   m_Name: TinyAsteroid
   m_TagString: Untagged
@@ -148,3 +149,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.07
+--- !u!114 &3379107054692393627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938235577106398598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604a74bc7f5682e4e9865667f428bacb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroidPrefabs: []
+  explosionAsteroidSpawns: []
+  hitsoundMaterial: 0
+  asteroidSize: 0

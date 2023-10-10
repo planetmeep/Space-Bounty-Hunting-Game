@@ -32,7 +32,7 @@ public class MainGuns : MonoBehaviour
         {
             // Calculate direction from gun to target
             Vector2 shootDirection = (targetPosition - (Vector2)transform.position).normalized;
-            Quaternion bulletRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.right, shootDirection) + 90);
+            Quaternion bulletRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.right, shootDirection) - 90);
             FireBullet(shootDirection, bulletRotation); 
         }
     }

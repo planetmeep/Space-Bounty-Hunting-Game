@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitParticle: {fileID: 5395603591273810055, guid: 3dbcd7bfc446e7b4ab65bf155073741e, type: 3}
   owner: {fileID: 0}
-  damageValue: 0
+  damageValue: 10
 --- !u!50 &734922189420182988
 Rigidbody2D:
   serializedVersion: 4

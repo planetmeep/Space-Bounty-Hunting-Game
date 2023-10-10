@@ -65,8 +65,20 @@ public class AudioManager : MonoBehaviour
         GetAudioSource(name).Play();
     }
 
-    public void StopSound(string name) 
+    public void ResetPlaySound(string name)
     {
         GetAudioSource(name).Stop();
+        GetAudioSource(name).Play();
+    }
+    public void StopSound(string name)
+    {
+        GetAudioSource(name).Stop();
+    }
+
+    public void PlayImpactSound(HitsoundMaterials material) 
+    {
+        string materialName = material.ToString();
+        GetAudioSource(materialName + "Impact").Stop();
+        GetAudioSource(materialName + "Impact").Play(); 
     }
 }
