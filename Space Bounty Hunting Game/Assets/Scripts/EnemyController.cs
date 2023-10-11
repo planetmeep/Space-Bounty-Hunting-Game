@@ -10,8 +10,9 @@ public class EnemyController : MonoBehaviour, IHittable
     private Transform playerTransform;   // Reference to the player's transform
     public GameObject explosionPrefab;
     public HitsoundMaterials hitsoundMaterial;
+    public virtual void UpdateBehavior() { }
 
-    private void Start()
+    protected void Start()
     {
         // Assuming there's only one player and it's tagged as "Player"
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -21,9 +22,9 @@ public class EnemyController : MonoBehaviour, IHittable
         }
     }
 
-    private void Update()
+    protected void Update()
     {
-        CheckAndAttackPlayer();
+        UpdateBehavior();
     }
 
     public void OnHit(Projectile projectile, Vector2 hitPoint) 
@@ -41,7 +42,7 @@ public class EnemyController : MonoBehaviour, IHittable
         }
     }
 
-    private void CheckAndAttackPlayer()
+    protected void CheckAndAttackPlayer()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
         if (distanceToPlayer <= detectionRadius)
@@ -50,7 +51,7 @@ public class EnemyController : MonoBehaviour, IHittable
         }
     }
 
-    private void AttackPlayer(Transform playerTransform)
+    protected void AttackPlayer(Transform playerTransform)
     {
         if(mainGuns == null)
         {
@@ -59,4 +60,5 @@ public class EnemyController : MonoBehaviour, IHittable
         }
         mainGuns.ShootAt(playerTransform.position);
     }
+
 }
