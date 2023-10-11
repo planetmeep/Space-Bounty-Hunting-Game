@@ -11,6 +11,7 @@ public class SeekerController : BaseEnemy
         if(withinRange)
         {
             AttackPlayer(playerTransform);
+            engines.ApplyBrakes();
         }
         else
         {
