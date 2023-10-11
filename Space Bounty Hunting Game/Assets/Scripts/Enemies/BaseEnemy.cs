@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour, IHittable
 {
-     public float health = 100f;
+    public float health = 100f;
     public MainGuns mainGuns;
     public float detectionRadius = 10f;  // The distance at which the enemy recognizes the player
     public float WeaponsRadius = 10f;
@@ -12,6 +12,7 @@ public class BaseEnemy : MonoBehaviour, IHittable
     public GameObject explosionPrefab;
     public HitsoundMaterials hitsoundMaterial;
     public Engines engines;
+    public Rigidbody2D rb;
     public virtual void UpdateBehavior() { }
 
 
@@ -94,7 +95,7 @@ public class BaseEnemy : MonoBehaviour, IHittable
     float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
 
     // Apply the rotation to the enemy's transform
-    transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); // Subtract 90 degrees if the sprite is facing upwards by default.
+    rb.MoveRotation(angle - 90); // Subtract 90 degrees if the sprite is facing upwards by default.
     }
 
 }

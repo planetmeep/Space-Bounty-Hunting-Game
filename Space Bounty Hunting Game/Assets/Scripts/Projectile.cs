@@ -10,9 +10,11 @@ public class Projectile : MonoBehaviour
     public float damageValue;
 
     // Made it set its owner so you can't shoot yourself
-    public void SetOwner(GameObject newOwner)
+    public void SetOwner(GameObject newOwner, int projectileLayer)
     {
         owner = newOwner;
+        //gameObject.layer = newOwner.layer;
+        gameObject.layer = projectileLayer;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -21,7 +23,8 @@ public class Projectile : MonoBehaviour
          Vector2 contactPosition = contactPoint.point; 
          Debug.Log("Bullet collided with: " + collision.gameObject.name);
          Instantiate(hitParticle, contactPosition, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 180));
-         IHittable hittable = collision.gameObject.GetComponent<IHittable>();
+
+        IHittable hittable = collision.gameObject.GetComponent<IHittable>();
          if (hittable != null)
          {
              hittable.OnHit(this, contactPosition);

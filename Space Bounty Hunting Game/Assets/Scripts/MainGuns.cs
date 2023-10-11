@@ -9,6 +9,7 @@ public class MainGuns : MonoBehaviour
     [SerializeField] private float rateOfFire = 5f; // Bullets per second
     [SerializeField] private float maxBulletDistance = 50f; // Max distance bullet can travel
     [SerializeField] private Collider2D shipCollider;//SET IN INSPECTOR
+    [SerializeField] private int projectileLayer;
 
     private float lastShootTime = 0; // To control the rate of fire
 
@@ -49,7 +50,7 @@ public class MainGuns : MonoBehaviour
         Projectile projectile = bullet.GetComponent<Projectile>();
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.velocity = direction * bulletSpeed;
-        projectile.SetOwner(gameObject);
+        projectile.SetOwner(gameObject, projectileLayer);
 
         // Automatically destroy bullet after traveling its max distance
         Destroy(bullet, maxBulletDistance / bulletSpeed);
