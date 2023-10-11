@@ -7,10 +7,13 @@ public class BaseEnemy : MonoBehaviour, IHittable
      public float health = 100f;
     public MainGuns mainGuns;
     public float detectionRadius = 10f;  // The distance at which the enemy recognizes the player
-    private Transform playerTransform;   // Reference to the player's transform
+    public float WeaponsRadius = 10f;
+    public Transform playerTransform;   // Reference to the player's transform
     public GameObject explosionPrefab;
     public HitsoundMaterials hitsoundMaterial;
+    public Engines engines;
     public virtual void UpdateBehavior() { }
+
 
     protected void Start()
     {
@@ -50,6 +53,15 @@ public class BaseEnemy : MonoBehaviour, IHittable
             AttackPlayer(playerTransform);
         }
     }
+    protected bool CheckPlayerWithinWeaponsRange()
+    {
+        float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        if (distanceToPlayer <= WeaponsRadius)
+        {
+            return true;
+        }
+        return false;
+    }
 
     protected void AttackPlayer(Transform playerTransform)
     {
@@ -59,6 +71,30 @@ public class BaseEnemy : MonoBehaviour, IHittable
             return;
         }
         mainGuns.ShootAt(playerTransform.position);
+    }
+    protected void MoveTowardsPlayer()
+    {
+        if(engines == null)
+        {
+            Debug.Log("NO ENGINES CANT FLY");
+            return;
+        }
+        // Calculate the direction to the player.
+        Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
+
+        // Thrust in that direction.
+        engines.Thrust(directionToPlayer);
+    }
+    protected void FacePlayer()
+    {
+    // Calculate direction from enemy to player
+    Vector2 directionToPlayer = playerTransform.position - transform.position;
+
+    // Calculate the rotation in radians
+    float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+
+    // Apply the rotation to the enemy's transform
+    transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); // Subtract 90 degrees if the sprite is facing upwards by default.
     }
 
 }

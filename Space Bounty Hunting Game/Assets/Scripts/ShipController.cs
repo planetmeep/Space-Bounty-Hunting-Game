@@ -5,7 +5,6 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
     [SerializeField] private float thrustPower = 35f;
-    [SerializeField] private float rotationSpeed;
     [SerializeField] private float maxVelocity = 10f;
     [SerializeField] private float brakeFactor = 0.9f;  // Multiplier to reduce speed. Value between 0 (full stop) and 1 (no braking).
     [SerializeField] public MainGuns mainGuns;
