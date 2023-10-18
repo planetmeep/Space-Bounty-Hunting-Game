@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SeekerController : BaseEnemy
 {
-    public override void UpdateBehavior() 
+    /*public override void UpdateBehavior() 
     { 
         FacePlayer();
         bool withinRange = CheckPlayerWithinWeaponsRange();
@@ -18,6 +18,27 @@ public class SeekerController : BaseEnemy
             MoveTowardsPlayer();
         }
 
+    }*/
+
+    private void FixedUpdate()
+    {
+        bool withinWeaponRange = CheckPlayerWithinWeaponsRange();
+        bool withinDetectionRange = CheckPlayerWithinDetectionRange();
+        if (withinWeaponRange)
+        {
+            FacePlayer();
+            AttackPlayer(playerTransform);
+            engines.ApplyBrakes();
+        }
+        else if (withinDetectionRange)
+        {
+            FacePlayer();
+            MoveTowardsPlayer();
+        } 
+        else 
+        {
+            engines.ApplyBrakes();
+        }
     }
-    
+
 }

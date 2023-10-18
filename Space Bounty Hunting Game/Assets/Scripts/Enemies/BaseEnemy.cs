@@ -64,6 +64,16 @@ public class BaseEnemy : MonoBehaviour, IHittable
         return false;
     }
 
+    protected bool CheckPlayerWithinDetectionRange() 
+    {
+        float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        if (distanceToPlayer <= detectionRadius)
+        {
+            return true;
+        }
+        return false;
+    }
+
     protected void AttackPlayer(Transform playerTransform)
     {
         if(mainGuns == null)
