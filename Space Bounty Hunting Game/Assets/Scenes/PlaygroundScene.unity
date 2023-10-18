@@ -634,8 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80146c18f564a144aa7affb398ceb49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustPower: 6
-  maxVelocity: 7
+  accelerationTime: 2
+  maxVelocity: 5
   brakeFactor: 0.9
   mainGuns: {fileID: 642843839}
   lateralThrustPower: 3
