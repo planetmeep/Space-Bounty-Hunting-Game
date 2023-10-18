@@ -79,7 +79,6 @@ public class ControlsManager : MonoBehaviour
         onStartThrustBackward -= shipController.StartBraking;
         onStopThrustBackward -= shipController.StopBraking;
         onReceiveMousePosition -= shipController.UpdateMousePosition;
-        onReceiveMousePosition -= crosshair.UpdateCrosshairPosition;
         onShootStarted -= shipController.StartShooting;
         onShootStopped -= shipController.StopShooting;
         onStartRightThrust -= shipController.StartRightThrust;
@@ -105,7 +104,6 @@ public class ControlsManager : MonoBehaviour
         onStopLeftThrust += shipController.StopLeftThrust;
            
             onReceiveMousePosition += shipController.UpdateMousePosition;
-            onReceiveMousePosition += crosshair.UpdateCrosshairPosition;
                 break;
 
             case PlayerMode.Walking:

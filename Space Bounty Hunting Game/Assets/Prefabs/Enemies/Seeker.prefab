@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 26600091a9a19d747b63bc07b4e4f40e, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.044384956, a: 1}
+  m_Color: {r: 1, g: 0.85882354, b: 0.23921569, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2465975428538344710, guid: 7678b3cdd7e134d4baee896cfedf8fd6, type: 3}
   bulletSpeed: 15
   rateOfFire: 1
-  maxBulletDistance: 7
+  maxBulletDistance: 50
   shipCollider: {fileID: 695719911548016271}
   projectileLayer: 9
 --- !u!114 &4405922759847899843

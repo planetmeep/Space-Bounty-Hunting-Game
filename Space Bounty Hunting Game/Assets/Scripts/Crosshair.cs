@@ -1,32 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Crosshair : MonoBehaviour
 {
+    Image image;
     public bool enableOnStart = true;
-    SpriteRenderer spriteRenderer;
+    
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        image = GetComponent<Image>();
         EnableCrosshair(enableOnStart);
-    }
-
-    public void UpdateCrosshairPosition(Vector2 mousePosition) 
-    {
-        /*Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(mousePosition);
-        transform.position = new Vector3(worldMousePos.x, worldMousePos.y, transform.position.z);*/
     }
 
     private void Update()
     {
-        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(worldMousePos.x, worldMousePos.y, transform.position.z);
+        transform.position = Input.mousePosition;
     }
     void EnableCrosshair(bool enable) 
     {
-        spriteRenderer.enabled = enable;
+        image.enabled = enable;
         Cursor.visible = !enable;
     }
 }
