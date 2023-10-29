@@ -8,6 +8,7 @@ public class BaseEnemy : MonoBehaviour, IHittable
     public MainGuns mainGuns;
     public float detectionRadius = 10f;  // The distance at which the enemy recognizes the player
     public float WeaponsRadius = 10f;
+    public float stopFollowRadius = 10f;
     public Transform playerTransform;   // Reference to the player's transform
     public GameObject explosionPrefab;
     public HitsoundMaterials hitsoundMaterial;
@@ -20,7 +21,7 @@ public class BaseEnemy : MonoBehaviour, IHittable
     {
         // Assuming there's only one player and it's tagged as "Player"
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        if(playerTransform == null)
+        if (playerTransform == null)
         {
             Debug.LogError("Player not found!");
         }
@@ -68,6 +69,16 @@ public class BaseEnemy : MonoBehaviour, IHittable
     {
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
         if (distanceToPlayer <= detectionRadius)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    protected bool CheckPlayerOutsideStopFollow() 
+    {
+        float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        if (distanceToPlayer >= stopFollowRadius)
         {
             return true;
         }

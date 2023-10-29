@@ -11,6 +11,7 @@ public class ShipController : MonoBehaviour
     private bool isShooting = false;
     [SerializeField] private float lateralThrustPower = 3f;
     [SerializeField] private ParticleSystem thrusterParticles;
+    public Transform[] directionalPoints; 
     private Rigidbody2D rb;
     private float currentVelocity;
     private float timeAccelerated;
@@ -18,7 +19,6 @@ public class ShipController : MonoBehaviour
     private bool applyBrakes = false;
     private bool thrustLeft = false;
     private bool thrustRight = false;
-    private bool accelerating = false;
 
     private void Awake()
     {
@@ -44,7 +44,6 @@ public class ShipController : MonoBehaviour
             {
                 AudioManager.instance.PlaySound("Thruster");
             }
-            print(currentVelocity);
             ThrustForward();
         }
         else 
@@ -79,25 +78,21 @@ public class ShipController : MonoBehaviour
     public void StartThrustForward()
     {
         thrustForward = true;
-        accelerating = true;
     }
 
     public void StopThrustForward()
     {
         thrustForward = false;
-        accelerating = false;
     }
 
     public void StartBraking()
     {
         applyBrakes = true;
-        accelerating = false;
     }
 
     public void StopBraking()
     {
         applyBrakes = false;
-        accelerating = false;
     }
 
     private void ThrustForward()
@@ -141,7 +136,7 @@ public class ShipController : MonoBehaviour
         // Set rotation
         rb.MoveRotation(angle);
     }
-   public void StartLeftThrust()
+public void StartLeftThrust()
 {
     thrustLeft = true;
 }

@@ -24,13 +24,15 @@ public class SeekerController : BaseEnemy
     {
         bool withinWeaponRange = CheckPlayerWithinWeaponsRange();
         bool withinDetectionRange = CheckPlayerWithinDetectionRange();
+        bool outsideFollowRadius = CheckPlayerOutsideStopFollow();
+
         if (withinWeaponRange)
         {
             FacePlayer();
             AttackPlayer(playerTransform);
             engines.ApplyBrakes();
         }
-        else if (withinDetectionRange)
+        if (withinDetectionRange && outsideFollowRadius)
         {
             FacePlayer();
             MoveTowardsPlayer();
@@ -40,5 +42,4 @@ public class SeekerController : BaseEnemy
             engines.ApplyBrakes();
         }
     }
-
 }

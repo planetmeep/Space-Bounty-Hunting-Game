@@ -130,7 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2465975428538344710, guid: 7678b3cdd7e134d4baee896cfedf8fd6, type: 3}
   bulletSpeed: 15
-  rateOfFire: 1
+  rateOfFire: 0.75
+  fireRateRandomness: 1
   maxBulletDistance: 50
   shipCollider: {fileID: 695719911548016271}
   projectileLayer: 9
@@ -148,8 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   mainGuns: {fileID: 4943448605738769631}
-  detectionRadius: 20
+  detectionRadius: 50
   WeaponsRadius: 10
+  stopFollowRadius: 4
   playerTransform: {fileID: 0}
   explosionPrefab: {fileID: 2196576137307728001, guid: c41533633c9d81546a50e35636735bb5, type: 3}
   hitsoundMaterial: 0
@@ -167,10 +169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14802ab23ef30d246a6814dd1607c3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lateralThrustPower: 3
   thrusterParticles: {fileID: 0}
+  velocityRandomness: 1
   maxVelocity: 6
-  thrustPower: 35
+  thrustPower: 10
   brakeFactor: 0.9
 --- !u!61 &695719911548016271
 BoxCollider2D:
