@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour, IHittable
 {
     public float health = 100f;
-    public MainGuns mainGuns;
+    public ShipGuns mainGuns;
     public float detectionRadius = 10f;  // The distance at which the enemy recognizes the player
     private Transform playerTransform;   // Reference to the player's transform
     public GameObject explosionPrefab;
@@ -27,21 +27,6 @@ public class EnemyController : MonoBehaviour, IHittable
         UpdateBehavior();
     }
 
-    public void OnHit(Projectile projectile, Vector2 hitPoint) 
-    {
-        AudioManager.instance.PlayImpactSound(hitsoundMaterial);
-        Debug.Log("HIT");
-        health -= projectile.damageValue;
-
-        if (health <= 0)
-        {
-            // Handle the death of the enemy
-            Instantiate(explosionPrefab, hitPoint, Quaternion.identity);
-            AudioManager.instance.ResetPlaySound("Explosion");
-            Destroy(this.gameObject);
-        }
-    }
-
     protected void CheckAndAttackPlayer()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
@@ -61,4 +46,18 @@ public class EnemyController : MonoBehaviour, IHittable
         mainGuns.ShootAt(playerTransform.position);
     }
 
+    public void OnHit(Projectile projectile, Vector2 hitPoint, Quaternion hitDirection)
+    {
+        AudioManager.instance.PlayImpactSound(hitsoundMaterial);
+        Debug.Log("HIT");
+        health -= projectile.damageValue;
+
+        if (health <= 0)
+        {
+            // Handle the death of the enemy
+            Instantiate(explosionPrefab, hitPoint, Quaternion.identity);
+            AudioManager.instance.ResetPlaySound("Explosion");
+            Destroy(this.gameObject);
+        }
+    }
 }

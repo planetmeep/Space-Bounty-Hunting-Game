@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseEnemy : MonoBehaviour, IHittable
 {
     public float health = 100f;
-    public MainGuns mainGuns;
+    public ShipGuns mainGuns;
     public float detectionRadius = 10f;  // The distance at which the enemy recognizes the player
     public float WeaponsRadius = 10f;
     public float stopFollowRadius = 10f;
@@ -119,4 +119,8 @@ public class BaseEnemy : MonoBehaviour, IHittable
     rb.MoveRotation(angle - 90); // Subtract 90 degrees if the sprite is facing upwards by default.
     }
 
+    public void OnHit(Projectile projectile, Vector2 hitPoint, Quaternion hitDirection)
+    {
+        throw new System.NotImplementedException();
+    }
 }

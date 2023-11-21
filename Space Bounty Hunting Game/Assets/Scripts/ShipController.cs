@@ -7,7 +7,7 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float accelerationTime = 1f;
     [SerializeField] private float maxVelocity = 10f;
     [SerializeField] private float brakeFactor = 0.9f;  // Multiplier to reduce speed. Value between 0 (full stop) and 1 (no braking).
-    [SerializeField] public MainGuns mainGuns;
+    [SerializeField] public ShipGuns mainGuns;
     private bool isShooting = false;
     [SerializeField] private float lateralThrustPower = 3f;
     [SerializeField] private ParticleSystem thrusterParticles;
@@ -69,30 +69,16 @@ public class ShipController : MonoBehaviour
     }
     private void Update()
     {
+        thrustForward = Input.GetKey(KeyCode.W);
+        applyBrakes = Input.GetKey(KeyCode.S);
+        thrustLeft = Input.GetKey(KeyCode.A);
+        thrustRight = Input.GetKey(KeyCode.D);
+        isShooting = Input.GetKey(KeyCode.Mouse0);
+        UpdateMousePosition();
         if (isShooting)
         {
             MainGuns();
         }
-    }
-
-    public void StartThrustForward()
-    {
-        thrustForward = true;
-    }
-
-    public void StopThrustForward()
-    {
-        thrustForward = false;
-    }
-
-    public void StartBraking()
-    {
-        applyBrakes = true;
-    }
-
-    public void StopBraking()
-    {
-        applyBrakes = false;
     }
 
     private void ThrustForward()
@@ -122,10 +108,10 @@ public class ShipController : MonoBehaviour
         rb.velocity *= brakeFactor;
     }
     
-    public void UpdateMousePosition(Vector2 mousePosition)
+    public void UpdateMousePosition()
     {
         // Convert mouse position to world position
-        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
         // Calculate the direction from ship to mouse
         Vector2 direction = (worldMousePos - transform.position).normalized;

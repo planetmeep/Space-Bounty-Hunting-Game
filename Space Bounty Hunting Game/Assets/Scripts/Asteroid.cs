@@ -53,17 +53,6 @@ public class Asteroid : MonoBehaviour, IHittable
         Tiny = 0
     }
 
-    public void OnHit(Projectile projectile, Vector2 hitPoint)
-    {
-        AudioManager.instance.PlayImpactSound(hitsoundMaterial);
-        asteroidHP -= projectile.damageValue;
-        
-        if (asteroidHP <= 0) 
-        {
-            AsteroidDie(hitPoint);
-        }
-    }
-
     private void AsteroidDie(Vector2 hitPoint) 
     {
         Debug.Log((int)asteroidSize);
@@ -80,5 +69,16 @@ public class Asteroid : MonoBehaviour, IHittable
             }
         }
         Destroy(gameObject);
+    }
+
+    public void OnHit(Projectile projectile, Vector2 hitPoint, Quaternion hitDirection)
+    {
+        AudioManager.instance.PlayImpactSound(hitsoundMaterial);
+        asteroidHP -= projectile.damageValue;
+
+        if (asteroidHP <= 0)
+        {
+            AsteroidDie(hitPoint);
+        }
     }
 }
