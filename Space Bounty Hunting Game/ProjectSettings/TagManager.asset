@@ -10,16 +10,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - PlayerShip
   - Water
   - UI
-  - Enemy
+  - EnemyShip
   - Asteroid
   - PlayerProjectile
   - EnemyProjectile
   - PostProcessing
-  - 
-  - 
+  - PlayerGround
+  - EnemyGround
   - 
   - 
   - 
