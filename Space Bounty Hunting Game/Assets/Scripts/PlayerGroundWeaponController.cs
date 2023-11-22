@@ -19,8 +19,15 @@ public class PlayerGroundWeaponController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)) 
         {
-            groundGuns.Shoot();
+            ShootTowardsMouse();
         }
+    }
+
+    private void ShootTowardsMouse() 
+    {
+        Vector3 pointDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        float mouseAngle = Mathf.Atan2(pointDirection.y, pointDirection.x) * Mathf.Rad2Deg;
+        groundGuns.Shoot(pointDirection, Quaternion.Euler(0, 0, mouseAngle - 90));
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -28,7 +35,6 @@ public class PlayerGroundWeaponController : MonoBehaviour
        Vector3 pointDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
        pointDirection.Normalize();
        float rotationZ = Mathf.Atan2(pointDirection.y, pointDirection.x) * Mathf.Rad2Deg;
-       print(rotationZ);
         if (rotationZ < -90 || rotationZ > 90)
         {
             //gunSprite.flipY = true;

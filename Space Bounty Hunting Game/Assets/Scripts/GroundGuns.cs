@@ -11,18 +11,18 @@ public class GroundGuns : MonoBehaviour
     [SerializeField] private float rateOfFire = 5f;
     [SerializeField] private int projectileLayer;
     [SerializeField] private float maxBulletDistance = 50f;
+    [SerializeField] private string weaponSound;
     private float lastShootTime = 0;
 
     // Update is called once per frame
-    public void Shoot()
+    public void Shoot(Vector3 direction, Quaternion angle)
     {
-        AudioManager.instance.PlaySound("Pistol");
-        Vector3 pointDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        float mouseAngle = Mathf.Atan2(pointDirection.y, pointDirection.x) * Mathf.Rad2Deg;
-        FireBullet(pointDirection, Quaternion.Euler(0, 0, mouseAngle - 90));
+        AudioManager.instance.PlaySound(weaponSound);
+        FireBullet(direction, angle);
         muzzleFlash.Play();
         ScreenShake.Instance.ShakeCamera(0.175f, 0.125f);
     }
+
     private void FireBullet(Vector2 direction, Quaternion bulletRotation)
     {
         lastShootTime = Time.time;
