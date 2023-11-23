@@ -5,7 +5,33 @@ using UnityEngine.Tilemaps;
 public static class BreadthFirstSearch
 {
 
-    public static Dictionary<Vector2Int, Vector2Int> BFS(Vector2Int start, Vector2Int end, Tilemap tilemap) 
+
+
+    public static Vector2Int[] ShortestPathArray(Dictionary<Vector2Int, Vector2Int> forwardPath) 
+    {
+        List<Vector2Int> arrayPath = new List<Vector2Int>();
+        foreach(KeyValuePair<Vector2Int , Vector2Int> pair in forwardPath) 
+        {
+            arrayPath.Add(pair.Key);
+        }
+        return arrayPath.ToArray();
+    }
+    public static Dictionary<Vector2Int, Vector2Int> ShortestPath(Vector2Int start, Vector2Int end, Dictionary<Vector2Int, Vector2Int> backwardPath) 
+    {
+        Dictionary<Vector2Int, Vector2Int> forwardPath = new Dictionary<Vector2Int, Vector2Int>();
+        // key: parent cell, value: child cell
+
+        Vector2Int childCell = end;
+        while (childCell != start)
+        {
+            forwardPath.Add(backwardPath[childCell], childCell);
+            childCell = backwardPath[childCell];
+        }
+
+        return forwardPath;
+    }
+
+    public static Dictionary<Vector2Int, Vector2Int> BFS(Vector2Int start, Tilemap tilemap) 
     {
         // start is cell coordinates
 
@@ -35,17 +61,7 @@ public static class BreadthFirstSearch
             }
         }
 
-        Dictionary<Vector2Int, Vector2Int> forwardPath = new Dictionary<Vector2Int, Vector2Int>();
-        // key: parent cell, value: child cell
-
-        Vector2Int childCell = end;
-        while (childCell != start) 
-        {
-            forwardPath.Add(backwardPath[childCell], childCell);
-            childCell = backwardPath[childCell]; 
-        }
-
-        return forwardPath;
+        return backwardPath;
 
     }
 
