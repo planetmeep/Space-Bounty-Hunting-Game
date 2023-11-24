@@ -5,8 +5,6 @@ using UnityEngine.Tilemaps;
 public static class BreadthFirstSearch
 {
 
-
-
     public static Vector2Int[] ShortestPathArray(Dictionary<Vector2Int, Vector2Int> forwardPath) 
     {
         List<Vector2Int> arrayPath = new List<Vector2Int>();
@@ -14,6 +12,7 @@ public static class BreadthFirstSearch
         {
             arrayPath.Add(pair.Key);
         }
+        arrayPath.Reverse();
         return arrayPath.ToArray();
     }
     public static Dictionary<Vector2Int, Vector2Int> ShortestPath(Vector2Int start, Vector2Int end, Dictionary<Vector2Int, Vector2Int> backwardPath) 

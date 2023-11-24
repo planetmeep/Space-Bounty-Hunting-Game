@@ -14,7 +14,6 @@ public class PlayerWalkController : MonoBehaviour
     Vector2 movementVelocity = Vector2.zero;
     Vector3 dampVelocity = Vector3.zero;
     Vector3 startPos;
-    
     private bool walking;
 
     // Start is called before the first frame update

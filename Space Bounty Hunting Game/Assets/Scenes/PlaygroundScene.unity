@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 253697924}
   - component: {fileID: 253697923}
   m_Layer: 0
-  m_Name: Grid (2)
+  m_Name: )rid (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -900,7 +900,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.17331, y: 5.815726, z: -10}
+  m_LocalPosition: {x: 17.735, y: 6.881, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1007,7 +1007,7 @@ Transform:
   m_GameObject: {fileID: 539854173}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.17331, y: 5.815726, z: 0}
+  m_LocalPosition: {x: 17.735, y: 6.881, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2764,6 +2764,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 45, y: 28, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 46, y: 28, z: 0}
     second:
       serializedVersion: 2
@@ -2904,7 +2914,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 7c07376092b42c944a78d19928070099, type: 2}
   - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: d08d0f4326ceaea4f87a00483b7c569b, type: 2}
-  - m_RefCount: 118
+  - m_RefCount: 119
     m_Data: {fileID: 11400000, guid: 7d1cd18e8506212489977230107a33c9, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 9
@@ -2915,10 +2925,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 130e6dad3309ee34c91436c14ee74241, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: 21300000, guid: 2e498c36877dc144f85be03c7b8344bc, type: 3}
-  - m_RefCount: 118
+  - m_RefCount: 119
     m_Data: {fileID: 21300000, guid: 1b3093dc90362444a874ad277056da92, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 149
+  - m_RefCount: 150
     m_Data:
       e00: 1
       e01: 0
@@ -2937,7 +2947,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 149
+  - m_RefCount: 150
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -3005,9 +3015,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f299868639d0946bfebee62cd6c3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkableTilemap: {fileID: 582574333}
+  tilemap: {fileID: 582574333}
   debugprefab: {fileID: 5379604686831872447, guid: d41517ce3b3c00e468893c1d2bc26037, type: 3}
-  cellToWorldOffset: {x: 0.175, y: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -6365,7 +6374,7 @@ Transform:
   m_GameObject: {fileID: 1545125354}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.17331, y: 5.815726, z: -10}
+  m_LocalPosition: {x: 17.735, y: 6.881, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6396,7 +6405,7 @@ GameObject:
   - component: {fileID: 1557659736}
   - component: {fileID: 1557659735}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: WalkableGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8240,6 +8249,38 @@ Transform:
   - {fileID: 1678127210}
   - {fileID: 872257738}
   m_Father: {fileID: 244743558}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1702790340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1702790341}
+  m_Layer: 6
+  m_Name: BodySpriteGroupAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1702790341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702790340}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3194289608496676397}
+  m_Father: {fileID: 8056247864887592975}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1808885475
 GameObject:
@@ -17614,7 +17655,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1623403440285991893}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17623,7 +17664,7 @@ Transform:
   - {fileID: 1050969950218076957}
   - {fileID: 1845206624155552091}
   - {fileID: 7620372955876223214}
-  m_Father: {fileID: 8056247864887592975}
+  m_Father: {fileID: 1702790341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3241437377401975564
 GameObject:
@@ -17731,6 +17772,7 @@ GameObject:
   - component: {fileID: 8056247864887592976}
   - component: {fileID: 8056247864887592977}
   - component: {fileID: 8056247864887592978}
+  - component: {fileID: 8056247864887592979}
   m_Layer: 6
   m_Name: Bodyguard
   m_TagString: Untagged
@@ -22598,12 +22640,12 @@ Transform:
   m_GameObject: {fileID: 4189716152645518054}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.655, y: 6.163, z: 0}
+  m_LocalPosition: {x: 15.39, y: 8.567, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1893517996}
-  - {fileID: 3194289608496676397}
+  - {fileID: 1702790341}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8056247864887592976
@@ -22621,7 +22663,16 @@ MonoBehaviour:
   handSprites:
   - {fileID: 438409484565434313}
   - {fileID: 8917525103090229757}
+  bodySpriteAnchor: {fileID: 1702790340}
   gunPivot: {fileID: 1893517995}
+  pathfindingNode: {fileID: 8056247864887592979}
+  rb: {fileID: 4548961237281399049}
+  currentFollowPoint: {x: 0, y: 0, z: 0}
+  directionToPoint: {x: 0, y: 0, z: 0}
+  bobAmplitude: 1
+  bobFrequency: 8
+  movementSpeed: 1
+  nodeContactRadius: 0.025
 --- !u!114 &8056247864887592977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22658,6 +22709,24 @@ MonoBehaviour:
   gunAnchor: {fileID: 854916995}
   gunSprite: {fileID: 658944729}
   groundGuns: {fileID: 8056247864887592977}
+--- !u!114 &8056247864887592979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4189716152645518054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a509b0476f1ea434f9ad509f4e41e86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 539854176}
+  pathManager: {fileID: 582574337}
+  previousTargetPos: {x: 0, y: 0, z: 0}
+  pathfindingEnabled: 1
+  currentPath: []
+  pointsIndex: 0
 --- !u!199 &8194229123670146586
 ParticleSystemRenderer:
   serializedVersion: 6
