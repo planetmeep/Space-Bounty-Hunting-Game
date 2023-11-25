@@ -956,7 +956,7 @@ GameObject:
   - component: {fileID: 539854179}
   - component: {fileID: 539854180}
   - component: {fileID: 539854181}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4825,21 +4825,21 @@ MonoBehaviour:
     loop: 0
     audioSource: {fileID: 0}
   - soundName: FleshImpact
-    audioClip: {fileID: 8300000, guid: 67a88f37eb95e494e86d976c7d66074e, type: 3}
+    audioClip: {fileID: 8300000, guid: dd9ee969bfd346f438486019651e5479, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 0.923
     loop: 0
     audioSource: {fileID: 0}
   - soundName: SilencedPistol
     audioClip: {fileID: 8300000, guid: 2c4872c7a1098d14a965adfbb004a5b2, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1.25
     loop: 0
     audioSource: {fileID: 0}
   - soundName: Pistol
-    audioClip: {fileID: 8300000, guid: 3e6aea85013e0c64087011e6cff756b1, type: 3}
-    volume: 1
-    pitch: 0.822
+    audioClip: {fileID: 8300000, guid: a4106a983e89ebf44a09973cd7d76fbb, type: 3}
+    volume: 0.5
+    pitch: 0.8
     loop: 0
     audioSource: {fileID: 0}
   songs: []
@@ -5571,10 +5571,10 @@ RectTransform:
   - {fileID: 1265896230}
   m_Father: {fileID: 660863795}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -50}
-  m_SizeDelta: {x: 64, y: 128}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1822.1426, y: -55.89798}
+  m_SizeDelta: {x: 75.796265, y: 123.7156}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1207362510
 MonoBehaviour:
@@ -5597,7 +5597,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 4d36ea506fd11f641a64c55a664b2c59, type: 3}
-  m_Type: 0
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5762,7 +5762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1265896230
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17691,17 +17691,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 988318287025010347, guid: fec0d17220e65584a93250d23340f797, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1138531922486039889, guid: fec0d17220e65584a93250d23340f797, type: 3}
       propertyPath: m_Name
       value: Target
       objectReference: {fileID: 0}
+    - target: {fileID: 1138531922486039889, guid: fec0d17220e65584a93250d23340f797, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585121289491717627, guid: fec0d17220e65584a93250d23340f797, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1807028093708788923, guid: fec0d17220e65584a93250d23340f797, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553330669278909538, guid: fec0d17220e65584a93250d23340f797, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6495799089400242104, guid: fec0d17220e65584a93250d23340f797, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.087
+      value: 12.858
       objectReference: {fileID: 0}
     - target: {fileID: 6495799089400242104, guid: fec0d17220e65584a93250d23340f797, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.446
+      value: 8.657
       objectReference: {fileID: 0}
     - target: {fileID: 6495799089400242104, guid: fec0d17220e65584a93250d23340f797, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17734,6 +17754,10 @@ PrefabInstance:
     - target: {fileID: 6495799089400242104, guid: fec0d17220e65584a93250d23340f797, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063694028992769753, guid: fec0d17220e65584a93250d23340f797, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17773,7 +17797,7 @@ GameObject:
   - component: {fileID: 8056247864887592977}
   - component: {fileID: 8056247864887592978}
   - component: {fileID: 8056247864887592979}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Bodyguard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17838,7 +17862,7 @@ MonoBehaviour:
   health: 10
   deathPushForce: 750
   isDead: 0
-  hitsoundMaterial: 0
+  hitsoundMaterial: 1
   hitParticle: {fileID: 5821140376826571759, guid: b6aec025af6d9b740ba480c6d5dc1d43, type: 3}
   rb: {fileID: 0}
 --- !u!198 &6031086625010641045
@@ -22644,8 +22668,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1893517996}
   - {fileID: 1702790341}
+  - {fileID: 1893517996}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8056247864887592976
@@ -22663,16 +22687,18 @@ MonoBehaviour:
   handSprites:
   - {fileID: 438409484565434313}
   - {fileID: 8917525103090229757}
-  bodySpriteAnchor: {fileID: 1702790340}
   gunPivot: {fileID: 1893517995}
   pathfindingNode: {fileID: 8056247864887592979}
+  bodySpriteAnchor: {fileID: 1702790341}
   rb: {fileID: 4548961237281399049}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 1
+  bobAmplitude: 0.0003
   bobFrequency: 8
   movementSpeed: 1
   nodeContactRadius: 0.025
+  stopDistance: 0.75
+  bodyguardType: 0
 --- !u!114 &8056247864887592977
 MonoBehaviour:
   m_ObjectHideFlags: 0
