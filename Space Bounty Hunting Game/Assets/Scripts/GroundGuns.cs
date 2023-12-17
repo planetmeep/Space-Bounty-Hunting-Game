@@ -20,7 +20,7 @@ public class GroundGuns : MonoBehaviour
         AudioManager.instance.PlaySound(weaponSound);
         FireBullet(direction, angle);
         muzzleFlash.Play();
-        ScreenShake.Instance.ShakeCamera(0.175f, 0.125f);
+        ScreenShake.Instance.ShakeCamera(0.2f, 0.125f);
     }
 
     private void FireBullet(Vector2 direction, Quaternion bulletRotation)

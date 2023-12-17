@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6927649587598321232}
   - component: {fileID: 777174676013315774}
   - component: {fileID: 8307809343840330699}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,6 +196,7 @@ MonoBehaviour:
   animator: {fileID: 1191187753945595205}
   health: 10
   deathPushForce: 750
+  isDead: 0
   hitsoundMaterial: 0
   hitParticle: {fileID: 5821140376826571759, guid: b6aec025af6d9b740ba480c6d5dc1d43, type: 3}
   rb: {fileID: 0}

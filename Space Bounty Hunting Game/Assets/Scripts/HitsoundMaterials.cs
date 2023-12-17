@@ -1,5 +1,6 @@
 public enum HitsoundMaterials
 {
     Hard,
-    Flesh
+    Flesh,
+    Metal
 }

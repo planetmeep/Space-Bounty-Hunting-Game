@@ -30,13 +30,10 @@ public class PlayerWalkController : MonoBehaviour
         movementVelocity = new Vector2(Input.GetAxis("Horizontal") * walkSpeed, Input.GetAxis("Vertical") * walkSpeed);
         walking = movementVelocity.magnitude > 0;
 
-        if (walking)
-        {
-            bodySpriteGroup.localPosition += FootStepMotion();
-        }
+        bodySpriteGroup.localPosition += walking ? FootStepMotion(bobFrequency, bobAmplitude) : FootStepMotion(bobFrequency / 4, bobAmplitude / 6);
         ResetPosition();
     }
-    private Vector3 FootStepMotion()
+    private Vector3 FootStepMotion(float bobFrequency, float bobAmplitude)
     {
         Vector3 pos = Vector3.zero;
         pos.y += Mathf.Sin(Time.time * bobFrequency) * bobAmplitude;

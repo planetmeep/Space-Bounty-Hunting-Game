@@ -22,7 +22,7 @@ public class PathfindingNode : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (pathfindingEnabled && CheckTargetMoved()) 
+        if (CheckTargetMoved()) 
         {
             currentPath = pathManager.PathToTarget(transform, target);
             pointsIndex = 1;

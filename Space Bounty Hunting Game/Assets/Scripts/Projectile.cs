@@ -21,7 +21,6 @@ public class Projectile : MonoBehaviour
     {
          ContactPoint2D contactPoint = collision.GetContact(0);
          Vector2 contactPosition = contactPoint.point; 
-         Debug.Log("Bullet collided with: " + collision.gameObject.name);
          //Instantiate(hitParticle, contactPosition, Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 180));
 
          IHittable hittable = collision.gameObject.GetComponent<IHittable>();
