@@ -9,6 +9,7 @@ public class PlayerWalkController : MonoBehaviour
     [SerializeField] private Transform bodySpriteGroup;
     [SerializeField] private float bobAmplitude;
     [SerializeField] private float bobFrequency;
+    [SerializeField] private float bobSmoothTime;
     private Rigidbody2D rb;
     private float timeMoved;
     Vector2 movementVelocity = Vector2.zero;
@@ -30,7 +31,7 @@ public class PlayerWalkController : MonoBehaviour
         movementVelocity = new Vector2(Input.GetAxis("Horizontal") * walkSpeed, Input.GetAxis("Vertical") * walkSpeed);
         walking = movementVelocity.magnitude > 0;
 
-        bodySpriteGroup.localPosition += walking ? FootStepMotion(bobFrequency, bobAmplitude) : FootStepMotion(bobFrequency / 4, bobAmplitude / 6);
+        bodySpriteGroup.localPosition += walking ? FootStepMotion(bobFrequency, bobAmplitude) : FootStepMotion(bobFrequency / 4, bobAmplitude / 2);
         ResetPosition();
     }
     private Vector3 FootStepMotion(float bobFrequency, float bobAmplitude)
@@ -44,7 +45,8 @@ public class PlayerWalkController : MonoBehaviour
     {
         if (bodySpriteGroup.localPosition == startPos) return;
 
-        bodySpriteGroup.localPosition = Vector3.Lerp(bodySpriteGroup.localPosition, startPos, 1 * Time.deltaTime);
+        //bodySpriteGroup.localPosition = Vector3.Lerp(bodySpriteGroup.localPosition, startPos, 1 * Time.deltaTime);
+        bodySpriteGroup.localPosition = Vector3.SmoothDamp(bodySpriteGroup.localPosition, startPos, ref dampVelocity, bobSmoothTime);
     }
 
     private void FixedUpdate()

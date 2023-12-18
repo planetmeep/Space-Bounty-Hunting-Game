@@ -33,9 +33,16 @@ public class KillableGroundNPC : MonoBehaviour, IHittable
             {
                 killable.Die();
             }
-            Instantiate(hitParticle, hitPoint, hitDirection);
+            StartCoroutine(StopParticlesAfterTime(1f, hitPoint, hitDirection));
             Vector2 projectileToNPC = transform.position - (Vector3)hitPoint;
             rb.AddForce(projectileToNPC * deathPushForce);
         }
+    }
+
+    IEnumerator StopParticlesAfterTime(float time, Vector2 hitPoint, Quaternion hitDirection) 
+    {
+        var blood = Instantiate(hitParticle, hitPoint, hitDirection);
+        yield return new WaitForSeconds(time);
+        blood.GetComponent<ParticleSystem>().Pause();
     }
 }

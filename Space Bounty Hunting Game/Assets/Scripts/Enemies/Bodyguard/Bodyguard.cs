@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor;
+using UnityEditor; 
 using UnityEngine;
+using Pathfinding;
+
 
 public class Bodyguard : MonoBehaviour, IKillable
 {
     public Rigidbody2D rb;
+    public AIPath AIPath;
+    public AIDestinationSetter destinationSetter;
     public BodyguardWeaponController weaponController;
     KillableGroundNPC killableScript;
     public bool roamer;
@@ -25,9 +29,9 @@ public class Bodyguard : MonoBehaviour, IKillable
     [Header("Visuals")]
     public float bobAmplitude;
     public float bobFrequency;
+    public float bobSmoothTime;
     public SpriteRenderer[] handSprites;
     public GameObject gunPivot;
-    public PathfindingNode pathfindingNode;
     public Transform bodySpriteAnchor;
 
     [Header("Enemy Vision")]
@@ -38,12 +42,13 @@ public class Bodyguard : MonoBehaviour, IKillable
     public Vector3 lookVector;
     public Vector3 aimVector;
     private Vector3 aimVelocity = Vector3.zero;
+    private Vector3 bobVelocity = Vector3.zero;
     private Transform playerTransform;
     public float aimTime;
 
     [Header("Enemy Combat")]
-    private float shootTimeElapsed;
     public float weaponRadius;
+    private float shootTimeElapsed;
     public float stopRadius;
     public int burstBullets;
     public float timeBetweenBullets;
@@ -52,7 +57,7 @@ public class Bodyguard : MonoBehaviour, IKillable
     public float bulletRadius;
     private int shotsFired;
 
-    
+
     //AI
     private State AIState;
     private float timeElapsed;
@@ -60,19 +65,22 @@ public class Bodyguard : MonoBehaviour, IKillable
     private float waitTimer;
     private float lookAngle;
     private bool seePlayer;
+    private bool shotOnPlayer;
     private bool hasSeenPlayer;
     private bool wandering;
 
-    public enum State 
+    public enum State
     {
         Idle,
         Search,
+        Scan,
         Attack
     }
 
     public void Die()
     {
-        foreach (var sprite in handSprites) 
+        AIPath.enabled = false;
+        foreach (var sprite in handSprites)
         {
             sprite.color = Color.black;
         }
@@ -83,11 +91,16 @@ public class Bodyguard : MonoBehaviour, IKillable
     // Start is called before the first frame update
     void Start()
     {
+        
+        AIPath.enabled = false;
+        hasSeenPlayer = false;
+        shotOnPlayer = false;
+        seePlayer = false;
         searchPoint = new GameObject("SearchPoint");
+        destinationSetter.target = searchPoint.transform;
         targetVelocity = Vector3.zero;
         shotsFired = 0;
         currentBulletTimer = timeBetweenBullets;
-        hasSeenPlayer = false;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         timeElapsed = 0f;
         shootTimeElapsed = 0f;
@@ -99,7 +112,7 @@ public class Bodyguard : MonoBehaviour, IKillable
         killableScript = GetComponent<KillableGroundNPC>();
         walking = false;
 
-        foreach (var sprite in handSprites) 
+        foreach (var sprite in handSprites)
         {
             sprite.color = Color.clear;
         }
@@ -111,59 +124,54 @@ public class Bodyguard : MonoBehaviour, IKillable
     private void Update()
     {
         if (killableScript.isDead) return;
-        UpdateMovementBob();
+
         seePlayer = SeePlayer(viewRaycastDistance, fieldOfViewAngle, lookVector);
-        if (seePlayer)
-        {
-            lookVector = (playerTransform.position - transform.position).normalized;
-            if (HasShotOnPlayer(viewRaycastDistance, aimVector)) 
-            {
-                SwitchState(State.Attack);
-            }
-            else
-            {
-                SwitchState(State.Search);
-                searchPoint.transform.position = playerTransform.position;
-            }
-            
-        }
-        else if (hasSeenPlayer)
-        {
-            SwitchState(State.Search);
-        }
-        else
-        {
-            SwitchState(State.Idle);
-        }
-        switch (AIState) 
+        shotOnPlayer = HasShotOnPlayer(viewRaycastDistance, lookVector);
+
+        print(AIState);
+        print(lookVector);
+
+        switch (AIState)
         {
             case State.Idle:
 
-                if (roamer) 
+                if (seePlayer)
                 {
-                    if (wandering) 
+                    if (shotOnPlayer)
                     {
-                        if (timeElapsed <= wanderTimer) 
+                        SwitchState(State.Attack);
+                    }
+                    else
+                    {
+                        SwitchState(State.Search);
+                    }
+                }
+
+                if (roamer)
+                {
+                    if (wandering)
+                    {
+                        if (timeElapsed <= wanderTimer)
                         {
                             timeElapsed += Time.deltaTime;
                             targetVelocity = lookVector * walkSpeed;
                         }
-                        else 
+                        else
                         {
                             wanderTimer = Random.Range(1f, 3f);
                             timeElapsed = 0f;
                             wandering = false;
                             targetVelocity = Vector3.zero;
-                            StartCoroutine(LookRandom(waitTimer/2));
+                            StartCoroutine(LookRandom(waitTimer / 2));
                         }
                     }
-                    else 
+                    else
                     {
-                        if (timeElapsed <= waitTimer) 
+                        if (timeElapsed <= waitTimer)
                         {
                             timeElapsed += Time.deltaTime;
                         }
-                        else 
+                        else
                         {
                             timeElapsed = 0f;
                             waitTimer = Random.Range(1f, 3f);
@@ -171,7 +179,7 @@ public class Bodyguard : MonoBehaviour, IKillable
                         }
                     }
                 }
-                else 
+                else
                 {
                     if (timeElapsed <= waitTimer)
                     {
@@ -186,9 +194,74 @@ public class Bodyguard : MonoBehaviour, IKillable
                 }
                 break;
             case State.Search:
-                UpdatePathfind();
+                if (seePlayer)
+                {
+                    lookVector = (playerTransform.transform.position - transform.position).normalized;
+                    if (shotOnPlayer)
+                    {
+                        SwitchState(State.Attack);
+                    }
+                    else
+                    {
+
+                        searchPoint.transform.position = playerTransform.position;
+                        SwitchState(State.Search);
+                    }
+                } 
+                else 
+                {
+                    lookVector = (AIPath.desiredVelocity).normalized;
+                }
+
+                if (AIPath.reachedEndOfPath)
+                {
+                    SwitchState(State.Scan);
+                }
+
+                break;
+            case State.Scan:
+
+                if (seePlayer) 
+                {
+                    StopAllCoroutines();
+                    if (shotOnPlayer) 
+                    {
+                        SwitchState(State.Attack);
+                    }
+                    else 
+                    {
+                        searchPoint.transform.position = playerTransform.position;
+                        SwitchState(State.Search);
+                    }
+                }
+
+                if (timeElapsed <= 2f) 
+                {
+                    timeElapsed += Time.deltaTime;
+                }
+                else 
+                {
+                    StopAllCoroutines();
+                    SwitchState(State.Idle);
+                }
                 break;
             case State.Attack:
+
+                if (seePlayer)
+                {
+                    if (shotOnPlayer)
+                    {
+                        SwitchState(State.Attack);
+                    }
+                    else
+                    {
+                        SwitchState(State.Search);
+                    }
+                } 
+                else 
+                {
+                    SwitchState(State.Search);
+                }
 
                 if (shootTimeElapsed <= currentBulletTimer)
                 {
@@ -210,44 +283,39 @@ public class Bodyguard : MonoBehaviour, IKillable
                     }
                     shootTimeElapsed = 0;
                 }
-
-                if (Vector3.Distance(playerTransform.position, transform.position) > weaponRadius)
-                {
-                    targetVelocity = lookVector * runSpeed;
-                }
-                else if (Vector3.Distance(playerTransform.position, transform.position) < stopRadius) 
-                {
-                    targetVelocity = Vector3.zero;
-                }
-                else
-                {
-                    targetVelocity = lookVector * slowWalkSpeed;
-                }
                 break;
         }
+        UpdateMovementBob();
         SmoothAim();
         UpdateVelocity();
     }
 
-    public void SwitchState(State nextState) 
+    public void SwitchState(State nextState)
     {
-        if (nextState != AIState) 
+        if (nextState != AIState)
         {
-            switch (nextState) 
+            switch (nextState)
             {
                 case State.Idle:
-                    pathfindingNode.pathfindingEnabled = false;
+                    AIPath.enabled = false;
                     hasSeenPlayer = false;
                     targetVelocity = Vector3.zero;
                     timeElapsed = 0f;
                     break;
                 case State.Search:
-                    pathfindingNode.pathfindingEnabled = true;
                     searchPoint.transform.position = playerTransform.position;
-                    pathfindingNode.target = searchPoint.transform;
+                    AIPath.enabled = true;
+                    break;
+                case State.Scan:
+                    targetVelocity = Vector3.zero;
+                    AIPath.enabled = false;
+                    hasSeenPlayer = false;
+                    timeElapsed = 0f;
+                    StartCoroutine(ScanRandom(2f / 3f));
                     break;
                 case State.Attack:
-                    pathfindingNode.pathfindingEnabled = false;
+                    lookVector = (playerTransform.transform.position - transform.position).normalized;
+                    AIPath.enabled = false;
                     hasSeenPlayer = true;
                     targetVelocity = Vector3.zero;
                     currentBulletTimer = 0f;
@@ -258,7 +326,7 @@ public class Bodyguard : MonoBehaviour, IKillable
 
         AIState = nextState;
     }
-    private void UpdateVelocity() 
+    private void UpdateVelocity()
     {
         rb.velocity = targetVelocity;
     }
@@ -269,12 +337,22 @@ public class Bodyguard : MonoBehaviour, IKillable
         LookAngle(Random.Range(0, 360));
     }
 
+
+    IEnumerator ScanRandom(float time)
+    {
+        yield return new WaitForSeconds(time);
+        LookAngle(Random.Range(0, 360));
+        yield return new WaitForSeconds(time);
+        LookAngle(Random.Range(0, 360));
+        yield return new WaitForSeconds(time);
+        LookAngle(Random.Range(0, 360));
+    }
+
     public void LookAngle(float angle)
     {
         lookAngle = angle;
         lookVector = (Quaternion.Euler(0, 0, angle) * transform.right);
     }
-
 
     public void SmoothAim() 
     {
@@ -285,45 +363,12 @@ public class Bodyguard : MonoBehaviour, IKillable
         weaponController.SetLookVector(aimVector);
     }
 
-    public void UpdatePathfind() 
-    {
-        if (pathfindingNode.currentPath.Length > 0 && Vector3.Distance(transform.position, pathfindingNode.currentPath[pathfindingNode.currentPath.Length - 1]) == 0)
-        {
-            SwitchState(State.Idle);
-            return;
-        }
-        else if (pathfindingNode.pointsIndex <= pathfindingNode.currentPath.Length - 1)
-        {
-            currentFollowPoint = pathfindingNode.currentPath[pathfindingNode.pointsIndex];
-        }
-
-        if (pathfindingNode.currentPath.Length > 0 && currentFollowPoint - transform.position != Vector3.zero) 
-        {
-            if (seePlayer) 
-            {
-                lookVector = lookVector = (playerTransform.position - transform.position).normalized;
-            } 
-            else 
-            {
-                lookVector = (currentFollowPoint - transform.position).normalized;
-            }
-            
-            transform.position = Vector3.MoveTowards(transform.position, currentFollowPoint, runSpeed * Time.deltaTime);
-            directionToPoint = currentFollowPoint - transform.position;
-        }
-
-        if (Vector3.Distance(transform.position, currentFollowPoint) == 0)
-        {
-            pathfindingNode.pointsIndex++;
-        }
-    }
-
     public void UpdateMovementBob() 
     {
         walking = rb.velocity.magnitude > 0;
         if (!killableScript.isDead)
         {
-            bodySpriteAnchor.localPosition += walking ? FootStepMotion(bobFrequency, bobAmplitude) : FootStepMotion(bobFrequency / 4, bobAmplitude / 6);
+            bodySpriteAnchor.localPosition += walking ? FootStepMotion(bobFrequency, bobAmplitude) : FootStepMotion(bobFrequency / 4, bobAmplitude / 2);
         }
         ResetPosition();
     }
@@ -346,9 +391,16 @@ public class Bodyguard : MonoBehaviour, IKillable
 
     private bool HasShotOnPlayer(float distance, Vector3 direction) 
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, bulletRadius, (direction.normalized), distance, ~visionIgnoreLayers);
+        RaycastHit2D circlehit = Physics2D.CircleCast(transform.position, bulletRadius, (direction.normalized), distance, ~visionIgnoreLayers);
+        RaycastHit2D rayhit = Physics2D.Raycast(transform.position, (direction.normalized), distance, ~visionIgnoreLayers);
         Debug.DrawRay(transform.position, direction.normalized, Color.green);
-        if (hit && (hit.collider.CompareTag("Player"))) return true;
+        if (circlehit && (circlehit.collider.CompareTag("Player"))) 
+        {
+            if (rayhit && (rayhit.collider.CompareTag("Player"))) 
+            {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -363,7 +415,7 @@ public class Bodyguard : MonoBehaviour, IKillable
     {
         if (bodySpriteAnchor.localPosition == startPos) return;
 
-        bodySpriteAnchor.localPosition = Vector3.Lerp(bodySpriteAnchor.localPosition, startPos, 1 * Time.deltaTime);
+        bodySpriteAnchor.localPosition = Vector3.SmoothDamp(bodySpriteAnchor.localPosition, startPos, ref bobVelocity, bobSmoothTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
