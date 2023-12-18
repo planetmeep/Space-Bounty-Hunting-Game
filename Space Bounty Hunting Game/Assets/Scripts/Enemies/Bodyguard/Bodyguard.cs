@@ -126,10 +126,7 @@ public class Bodyguard : MonoBehaviour, IKillable
         if (killableScript.isDead) return;
 
         seePlayer = SeePlayer(viewRaycastDistance, fieldOfViewAngle, lookVector);
-        shotOnPlayer = HasShotOnPlayer(viewRaycastDistance, lookVector);
-
-        print(AIState);
-        print(lookVector);
+        shotOnPlayer = seePlayer ? HasShotOnPlayer(viewRaycastDistance, lookVector) : false;
 
         switch (AIState)
         {
