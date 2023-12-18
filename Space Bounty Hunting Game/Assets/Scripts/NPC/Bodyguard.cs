@@ -51,6 +51,7 @@ public class Bodyguard : MonoBehaviour, IKillable
     private float currentBulletTimer;
     public float bulletRadius;
     private int shotsFired;
+
     
     //AI
     private State AIState;
@@ -58,6 +59,7 @@ public class Bodyguard : MonoBehaviour, IKillable
     private float wanderTimer;
     private float waitTimer;
     private float lookAngle;
+    private bool seePlayer;
     private bool hasSeenPlayer;
     private bool wandering;
 
@@ -110,7 +112,8 @@ public class Bodyguard : MonoBehaviour, IKillable
     {
         if (killableScript.isDead) return;
         UpdateMovementBob();
-        if (SeePlayer(viewRaycastDistance, fieldOfViewAngle, lookVector))
+        seePlayer = SeePlayer(viewRaycastDistance, fieldOfViewAngle, lookVector);
+        if (seePlayer)
         {
             lookVector = (playerTransform.position - transform.position).normalized;
             if (HasShotOnPlayer(viewRaycastDistance, aimVector)) 
@@ -248,7 +251,7 @@ public class Bodyguard : MonoBehaviour, IKillable
                     hasSeenPlayer = true;
                     targetVelocity = Vector3.zero;
                     currentBulletTimer = 0f;
-                    currentBulletTimer = timeBetweenBullets + timeBetweenBursts;
+                    currentBulletTimer = timeBetweenBullets;
                     break;
             }
         }
@@ -296,7 +299,15 @@ public class Bodyguard : MonoBehaviour, IKillable
 
         if (pathfindingNode.currentPath.Length > 0 && currentFollowPoint - transform.position != Vector3.zero) 
         {
-            lookVector = (currentFollowPoint - transform.position).normalized;
+            if (seePlayer) 
+            {
+                lookVector = lookVector = (playerTransform.position - transform.position).normalized;
+            } 
+            else 
+            {
+                lookVector = (currentFollowPoint - transform.position).normalized;
+            }
+            
             transform.position = Vector3.MoveTowards(transform.position, currentFollowPoint, runSpeed * Time.deltaTime);
             directionToPoint = currentFollowPoint - transform.position;
         }
