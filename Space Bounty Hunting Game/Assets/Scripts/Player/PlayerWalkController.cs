@@ -9,11 +9,16 @@ public class PlayerWalkController : MonoBehaviour
     [SerializeField] private Transform bodySpriteGroup;
     [SerializeField] private float bobAmplitude;
     [SerializeField] private float bobFrequency;
-    [SerializeField] private float bobSmoothTime;
+    [SerializeField] private float bobAmplitudeDivisor;
+    [SerializeField] private float bobFrequencyDivisor;
+    [SerializeField] private float bobLerpTime;
+    private float currentAmplitude;
+    private float currentFrequency;
+    private float lerpTimer;
     private Rigidbody2D rb;
     private float timeMoved;
     Vector2 movementVelocity = Vector2.zero;
-    Vector3 dampVelocity = Vector3.zero;
+    Vector2 desiredPosition = Vector2.zero;
     Vector3 startPos;
     private bool walking;
 
@@ -23,16 +28,38 @@ public class PlayerWalkController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         walking = false;
         startPos = bodySpriteGroup.localPosition;
+        lerpTimer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         movementVelocity = new Vector2(Input.GetAxis("Horizontal") * walkSpeed, Input.GetAxis("Vertical") * walkSpeed);
+        bool walkingChanged = CheckChangeWalking(movementVelocity.magnitude > 0);
         walking = movementVelocity.magnitude > 0;
 
-        bodySpriteGroup.localPosition += walking ? FootStepMotion(bobFrequency, bobAmplitude) : FootStepMotion(bobFrequency / 4, bobAmplitude / 2);
-        ResetPosition();
+
+        lerpTimer += Time.deltaTime;
+        lerpTimer = Mathf.Min(lerpTimer, bobLerpTime);
+
+        if (walkingChanged) lerpTimer = 0f;
+
+        if (walking) 
+        {
+            currentAmplitude = bobAmplitude;
+            currentFrequency = bobFrequency;
+        } 
+        else 
+        {
+            currentAmplitude = bobAmplitude / bobAmplitudeDivisor;
+            currentFrequency = bobFrequency / bobFrequencyDivisor;
+        }
+
+        desiredPosition = FootStepMotion(currentFrequency, currentAmplitude);
+
+        bodySpriteGroup.localPosition = Vector2.Lerp(bodySpriteGroup.localPosition, desiredPosition, lerpTimer / bobLerpTime);
+
+
     }
     private Vector3 FootStepMotion(float bobFrequency, float bobAmplitude)
     {
@@ -41,14 +68,14 @@ public class PlayerWalkController : MonoBehaviour
         return pos;
     }
 
-    private void ResetPosition()
+    private bool CheckChangeWalking(bool newWalking) 
     {
-        if (bodySpriteGroup.localPosition == startPos) return;
-
-        //bodySpriteGroup.localPosition = Vector3.Lerp(bodySpriteGroup.localPosition, startPos, 1 * Time.deltaTime);
-        bodySpriteGroup.localPosition = Vector3.SmoothDamp(bodySpriteGroup.localPosition, startPos, ref dampVelocity, bobSmoothTime);
+        if (newWalking != walking) 
+        {
+            return true;
+        }
+        return false;
     }
-
     private void FixedUpdate()
     {
         rb.velocity = movementVelocity;

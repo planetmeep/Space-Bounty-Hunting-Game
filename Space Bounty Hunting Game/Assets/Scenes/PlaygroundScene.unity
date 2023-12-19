@@ -1290,9 +1290,11 @@ MonoBehaviour:
   targetVelocity: {x: 0, y: 0, z: 0}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 0.004
+  bobAmplitude: 0.025
   bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
   handSprites:
   - {fileID: 85462870}
   - {fileID: 1376179202}
@@ -2258,9 +2260,11 @@ MonoBehaviour:
   targetVelocity: {x: 0, y: 0, z: 0}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 0.004
+  bobAmplitude: 0.025
   bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
   handSprites:
   - {fileID: 696178196}
   - {fileID: 355748891}
@@ -3254,9 +3258,11 @@ MonoBehaviour:
   targetVelocity: {x: 0, y: 0, z: 0}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 0.004
+  bobAmplitude: 0.025
   bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
   handSprites:
   - {fileID: 1876637650}
   - {fileID: 92815687}
@@ -3522,9 +3528,11 @@ MonoBehaviour:
   walkSpeed: 1.5
   animator: {fileID: 0}
   bodySpriteGroup: {fileID: 1966380554}
-  bobAmplitude: 0.005
-  bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitude: 0.035
+  bobFrequency: 10
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
 --- !u!114 &539854179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8743,9 +8751,11 @@ MonoBehaviour:
   targetVelocity: {x: 0, y: 0, z: 0}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 0.004
+  bobAmplitude: 0.025
   bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
   handSprites:
   - {fileID: 1811089546}
   - {fileID: 720323172}
@@ -10031,9 +10041,11 @@ MonoBehaviour:
   targetVelocity: {x: 0, y: 0, z: 0}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 0.004
+  bobAmplitude: 0.025
   bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
   handSprites:
   - {fileID: 1802095449}
   - {fileID: 1617083499}
@@ -12430,9 +12442,11 @@ MonoBehaviour:
   targetVelocity: {x: 0, y: 0, z: 0}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 0.004
+  bobAmplitude: 0.025
   bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
   handSprites:
   - {fileID: 1741225657}
   - {fileID: 1841589542}
@@ -25873,9 +25887,11 @@ MonoBehaviour:
   targetVelocity: {x: 0, y: 0, z: 0}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 0.004
+  bobAmplitude: 0.025
   bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
   handSprites:
   - {fileID: 198808824}
   - {fileID: 1846918678}
@@ -31585,9 +31601,11 @@ MonoBehaviour:
   targetVelocity: {x: 0, y: 0, z: 0}
   currentFollowPoint: {x: 0, y: 0, z: 0}
   directionToPoint: {x: 0, y: 0, z: 0}
-  bobAmplitude: 0.004
+  bobAmplitude: 0.025
   bobFrequency: 8
-  bobSmoothTime: 0.05
+  bobAmplitudeDivisor: 2
+  bobFrequencyDivisor: 4
+  bobLerpTime: 0.5
   handSprites:
   - {fileID: 438409484565434313}
   - {fileID: 8917525103090229757}

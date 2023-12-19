@@ -29,7 +29,12 @@ public class Bodyguard : MonoBehaviour, IKillable
     [Header("Visuals")]
     public float bobAmplitude;
     public float bobFrequency;
-    public float bobSmoothTime;
+    [SerializeField] private float bobAmplitudeDivisor;
+    [SerializeField] private float bobFrequencyDivisor;
+    [SerializeField] private float bobLerpTime;
+    private float currentAmplitude;
+    private float currentFrequency;
+    private float lerpTimer;
     public SpriteRenderer[] handSprites;
     public GameObject gunPivot;
     public Transform bodySpriteAnchor;
@@ -42,7 +47,7 @@ public class Bodyguard : MonoBehaviour, IKillable
     public Vector3 lookVector;
     public Vector3 aimVector;
     private Vector3 aimVelocity = Vector3.zero;
-    private Vector3 bobVelocity = Vector3.zero;
+    private Vector3 desiredBobPosition = Vector3.zero;
     private Transform playerTransform;
     public float aimTime;
 
@@ -91,7 +96,7 @@ public class Bodyguard : MonoBehaviour, IKillable
     // Start is called before the first frame update
     void Start()
     {
-        
+        lerpTimer = 0f;
         AIPath.enabled = false;
         hasSeenPlayer = false;
         shotOnPlayer = false;
@@ -128,6 +133,9 @@ public class Bodyguard : MonoBehaviour, IKillable
         seePlayer = SeePlayer(viewRaycastDistance, fieldOfViewAngle, lookVector);
         shotOnPlayer = seePlayer ? HasShotOnPlayer(viewRaycastDistance, lookVector) : false;
 
+        bool newWalking = false;
+        bool running = false;
+
         switch (AIState)
         {
             case State.Idle:
@@ -148,6 +156,7 @@ public class Bodyguard : MonoBehaviour, IKillable
                 {
                     if (wandering)
                     {
+                        newWalking = true;
                         if (timeElapsed <= wanderTimer)
                         {
                             timeElapsed += Time.deltaTime;
@@ -164,6 +173,7 @@ public class Bodyguard : MonoBehaviour, IKillable
                     }
                     else
                     {
+                        newWalking = false;
                         if (timeElapsed <= waitTimer)
                         {
                             timeElapsed += Time.deltaTime;
@@ -178,6 +188,7 @@ public class Bodyguard : MonoBehaviour, IKillable
                 }
                 else
                 {
+                    newWalking = false;
                     if (timeElapsed <= waitTimer)
                     {
                         timeElapsed += Time.deltaTime;
@@ -191,6 +202,8 @@ public class Bodyguard : MonoBehaviour, IKillable
                 }
                 break;
             case State.Search:
+                newWalking = true;
+                running = true;
                 if (seePlayer)
                 {
                     lookVector = (playerTransform.transform.position - transform.position).normalized;
@@ -217,6 +230,7 @@ public class Bodyguard : MonoBehaviour, IKillable
 
                 break;
             case State.Scan:
+                newWalking = false;
 
                 if (seePlayer) 
                 {
@@ -232,7 +246,7 @@ public class Bodyguard : MonoBehaviour, IKillable
                     }
                 }
 
-                if (timeElapsed <= 2f) 
+                if (timeElapsed <= 0.5f) 
                 {
                     timeElapsed += Time.deltaTime;
                 }
@@ -282,9 +296,10 @@ public class Bodyguard : MonoBehaviour, IKillable
                 }
                 break;
         }
-        UpdateMovementBob();
+        UpdateMovementBob(newWalking, running);
         SmoothAim();
         UpdateVelocity();
+        walking = newWalking;
     }
 
     public void SwitchState(State nextState)
@@ -308,7 +323,7 @@ public class Bodyguard : MonoBehaviour, IKillable
                     AIPath.enabled = false;
                     hasSeenPlayer = false;
                     timeElapsed = 0f;
-                    StartCoroutine(ScanRandom(2f / 3f));
+                    StartCoroutine(LookRandom(0.25f));
                     break;
                 case State.Attack:
                     lookVector = (playerTransform.transform.position - transform.position).normalized;
@@ -335,16 +350,6 @@ public class Bodyguard : MonoBehaviour, IKillable
     }
 
 
-    IEnumerator ScanRandom(float time)
-    {
-        yield return new WaitForSeconds(time);
-        LookAngle(Random.Range(0, 360));
-        yield return new WaitForSeconds(time);
-        LookAngle(Random.Range(0, 360));
-        yield return new WaitForSeconds(time);
-        LookAngle(Random.Range(0, 360));
-    }
-
     public void LookAngle(float angle)
     {
         lookAngle = angle;
@@ -360,14 +365,43 @@ public class Bodyguard : MonoBehaviour, IKillable
         weaponController.SetLookVector(aimVector);
     }
 
-    public void UpdateMovementBob() 
+    public void UpdateMovementBob(bool newWalking, bool running) 
     {
-        walking = rb.velocity.magnitude > 0;
-        if (!killableScript.isDead)
+        bool walkingChanged = CheckChangeWalking(newWalking);
+
+        lerpTimer += Time.deltaTime;
+        lerpTimer = Mathf.Min(lerpTimer, bobLerpTime);
+
+        if (walkingChanged) lerpTimer = 0f;
+
+        if (walking && running) 
         {
-            bodySpriteAnchor.localPosition += walking ? FootStepMotion(bobFrequency, bobAmplitude) : FootStepMotion(bobFrequency / 4, bobAmplitude / 2);
+            currentAmplitude = bobAmplitude * 1.5f;
+            currentFrequency = bobFrequency * 2;
         }
-        ResetPosition();
+        else if (walking)
+        {
+            currentAmplitude = bobAmplitude;
+            currentFrequency = bobFrequency;
+        }
+        else
+        {
+            currentAmplitude = bobAmplitude / bobAmplitudeDivisor;
+            currentFrequency = bobFrequency / bobFrequencyDivisor;
+        }
+
+        desiredBobPosition = FootStepMotion(currentFrequency, currentAmplitude);
+
+        bodySpriteAnchor.localPosition = Vector2.Lerp(bodySpriteAnchor.localPosition, desiredBobPosition, lerpTimer / bobLerpTime);
+    }
+
+    private bool CheckChangeWalking(bool newWalking)
+    {
+        if (newWalking != walking)
+        {
+            return true;
+        }
+        return false;
     }
 
     private bool SeePlayer(float distance, int angle, Vector3 direction)
@@ -406,13 +440,6 @@ public class Bodyguard : MonoBehaviour, IKillable
         Vector3 pos = Vector3.zero;
         pos.y += Mathf.Sin(Time.time * bobFrequency) * bobAmplitude;
         return pos;
-    }
-
-    private void ResetPosition()
-    {
-        if (bodySpriteAnchor.localPosition == startPos) return;
-
-        bodySpriteAnchor.localPosition = Vector3.SmoothDamp(bodySpriteAnchor.localPosition, startPos, ref bobVelocity, bobSmoothTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
