@@ -7,6 +7,7 @@ public class GroundGuns : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject muzzleParticles;
     public ParticleSystem muzzleFlash;
+    public GameObject bulletCasingPrefab;
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private float rateOfFire = 5f;
     [SerializeField] private int projectileLayer;
@@ -25,6 +26,7 @@ public class GroundGuns : MonoBehaviour
 
     private void FireBullet(Vector2 direction, Quaternion bulletRotation)
     {
+        Instantiate(bulletCasingPrefab, transform.position, bulletRotation);
         lastShootTime = Time.time;
 
         // Create the bullet at a safe position

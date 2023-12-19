@@ -11,6 +11,8 @@ TagManager:
   - SpaceStationExit
   - SpaceStationEntrance
   - PlayerShip
+  - DoorEnterZone
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -27,7 +29,7 @@ TagManager:
   - EnemyGround
   - SpaceStationWall
   - Corpse
-  - 
+  - Door
   - 
   - 
   - 
