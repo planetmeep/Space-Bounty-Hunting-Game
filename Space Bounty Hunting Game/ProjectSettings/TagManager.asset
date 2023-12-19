@@ -8,6 +8,9 @@ TagManager:
   - Projectile
   - debug
   - SpaceStationWall
+  - SpaceStationExit
+  - SpaceStationEntrance
+  - PlayerShip
   layers:
   - Default
   - TransparentFX

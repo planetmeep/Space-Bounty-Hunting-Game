@@ -101,7 +101,7 @@ public class Bodyguard : MonoBehaviour, IKillable
         targetVelocity = Vector3.zero;
         shotsFired = 0;
         currentBulletTimer = timeBetweenBullets;
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = PlayerControlModes.instance.playerGround.transform;
         timeElapsed = 0f;
         shootTimeElapsed = 0f;
         wanderTimer = Random.Range(1f, 3f);
@@ -123,7 +123,7 @@ public class Bodyguard : MonoBehaviour, IKillable
 
     private void Update()
     {
-        if (killableScript.isDead) return;
+        if (killableScript.isDead || !PlayerControlModes.instance.playerGround.activeSelf) return;
 
         seePlayer = SeePlayer(viewRaycastDistance, fieldOfViewAngle, lookVector);
         shotOnPlayer = seePlayer ? HasShotOnPlayer(viewRaycastDistance, lookVector) : false;

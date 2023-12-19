@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
+    public bool controlsActive;
     [SerializeField] private float accelerationTime = 1f;
     [SerializeField] private float maxVelocity = 10f;
     [SerializeField] private float brakeFactor = 0.9f;  // Multiplier to reduce speed. Value between 0 (full stop) and 1 (no braking).
@@ -25,10 +26,12 @@ public class ShipController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         currentVelocity = 0;
         timeAccelerated = 0;
+        controlsActive = true;
     }
 
     private void FixedUpdate()
     {
+        if (!controlsActive) return;
         if (thrustForward)
         {
             thrusterParticles.Play();
@@ -69,6 +72,7 @@ public class ShipController : MonoBehaviour
     }
     private void Update()
     {
+        if (!controlsActive) return;
         thrustForward = Input.GetKey(KeyCode.W);
         applyBrakes = Input.GetKey(KeyCode.S);
         thrustLeft = Input.GetKey(KeyCode.A);
@@ -79,6 +83,14 @@ public class ShipController : MonoBehaviour
         {
             MainGuns();
         }
+    }
+
+    public void DisableControls() 
+    {
+        thrusterParticles.Stop();
+        timeAccelerated = 0;
+        AudioManager.instance.StopSound("Thruster");
+        controlsActive = false;
     }
 
     private void ThrustForward()
