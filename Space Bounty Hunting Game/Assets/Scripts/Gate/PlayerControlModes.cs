@@ -13,7 +13,6 @@ public class PlayerControlModes : MonoBehaviour
     public GameObject playerShip;
 
     public CinemachineVirtualCamera virtualCamera;
-    public Camera playerCamera;
     public float groundCameraSize;
     public float shipCameraSize;
     public bool manningShip;
@@ -37,7 +36,7 @@ public class PlayerControlModes : MonoBehaviour
         playerGround.transform.position = spawnPoint;
         playerGround.SetActive(true);
         virtualCamera.Follow = playerGround.transform;
-        playerCamera.orthographicSize = groundCameraSize;
+        virtualCamera.m_Lens.OrthographicSize = groundCameraSize;
         playerShip.transform.position = shipPausePoint;
         playerShip.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         playerShip.transform.rotation = Quaternion.Euler(0, 0, -180);
@@ -49,7 +48,7 @@ public class PlayerControlModes : MonoBehaviour
         manningShip = true;
         playerGround.SetActive(false);
         virtualCamera.Follow = playerShip.transform;
-        playerCamera.orthographicSize = shipCameraSize;
+        virtualCamera.m_Lens.OrthographicSize = shipCameraSize;
         playerShip.GetComponent<ShipController>().controlsActive = true;
     }
 }
