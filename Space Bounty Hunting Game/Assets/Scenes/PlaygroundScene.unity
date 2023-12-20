@@ -8390,20 +8390,26 @@ MonoBehaviour:
     audioSource: {fileID: 0}
   - soundName: FleshImpact
     audioClip: {fileID: 8300000, guid: dd9ee969bfd346f438486019651e5479, type: 3}
-    volume: 0.5
-    pitch: 0.923
+    volume: 0.75
+    pitch: 1
     loop: 0
     audioSource: {fileID: 0}
   - soundName: MetalImpact
     audioClip: {fileID: 8300000, guid: c5149bc5cfa362043a82a65dec80f1bc, type: 3}
-    volume: 0.203
+    volume: 0
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
   - soundName: SilencedPistol
-    audioClip: {fileID: 8300000, guid: 2c4872c7a1098d14a965adfbb004a5b2, type: 3}
-    volume: 0.5
-    pitch: 1.25
+    audioClip: {fileID: 8300000, guid: 3e48100a339dd144cafeea205a704708, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    audioSource: {fileID: 0}
+  - soundName: DoorOpen
+    audioClip: {fileID: 8300000, guid: cfae55999e3220a409def6a1f797857c, type: 3}
+    volume: 1
+    pitch: 0.8
     loop: 0
     audioSource: {fileID: 0}
   - soundName: Pistol

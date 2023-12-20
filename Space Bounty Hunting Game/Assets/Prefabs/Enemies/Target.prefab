@@ -197,7 +197,7 @@ MonoBehaviour:
   health: 10
   deathPushForce: 750
   isDead: 0
-  hitsoundMaterial: 0
+  hitsoundMaterial: 1
   hitParticle: {fileID: 5821140376826571759, guid: b6aec025af6d9b740ba480c6d5dc1d43, type: 3}
   rb: {fileID: 0}
 --- !u!1 &1585121289491717627

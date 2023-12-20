@@ -27,6 +27,7 @@ public class Door : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E)) 
             {
+                AudioManager.instance.PlaySound("DoorOpen");
                 ScreenShake.Instance.ShakeCamera(0.3f, 0.2f);
                 animator.Play("Open");
                 coverTileGroup.SetActive(false);

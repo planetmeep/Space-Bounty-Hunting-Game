@@ -78,6 +78,7 @@ public class AudioManager : MonoBehaviour
     public void PlayImpactSound(HitsoundMaterials material) 
     {
         string materialName = material.ToString();
+        GetAudioSource(materialName + "Impact").pitch = UnityEngine.Random.Range(0.8f, 1.2f);
         GetAudioSource(materialName + "Impact").Stop();
         GetAudioSource(materialName + "Impact").Play(); 
     }
