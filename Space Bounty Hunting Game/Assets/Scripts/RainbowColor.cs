@@ -10,6 +10,7 @@ public class RainbowColor : MonoBehaviour
     [SerializeField] private float _hueShiftSpeed = 0.2f;
     [SerializeField, Range(0, 1)] private float _saturation = 1f;
     [SerializeField, Range(0, 1)] private float _value = 1f;
+    [SerializeField, Range(0, 1)] private float _opacity = 1f;
 
     private void Start()
     {
@@ -41,6 +42,8 @@ public class RainbowColor : MonoBehaviour
         val = _value;
 
         // convert back to RGB and return the color
-        return Color.HSVToRGB(hue, sat, val);
+        Color targetColor = Color.HSVToRGB(hue, sat, val);
+        targetColor.a = _opacity;
+        return targetColor;
     }
 }

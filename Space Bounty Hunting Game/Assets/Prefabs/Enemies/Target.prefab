@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1851828395
-  m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingLayer: 3
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 1e464fe812f27dc429380149bf6603f2, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8307809343840330699}
   m_Layer: 12
   m_Name: Target
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,8 +271,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1851828395
-  m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingLayer: 3
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: f49e8295c025d2b48ab7914e869f8fb5, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -355,8 +355,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1851828395
-  m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingLayer: 3
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: ee29e05b130b84149ae91efa561f346f, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -496,8 +496,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1851828395
-  m_SortingLayer: 2
-  m_SortingOrder: 3
+  m_SortingLayer: 3
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: f49e8295c025d2b48ab7914e869f8fb5, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
