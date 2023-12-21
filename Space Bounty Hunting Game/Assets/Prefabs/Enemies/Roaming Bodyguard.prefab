@@ -167,9 +167,10 @@ MonoBehaviour:
   aimTime: 0.1
   weaponRadius: 1.25
   stopRadius: 1
-  burstBullets: 6
+  burstBullets: 3
   timeBetweenBullets: 0.5
-  timeBetweenBursts: 0.25
+  timeBetweenBursts: 0.5
+  reactionTime: 0.2
   bulletRadius: 0.1
 --- !u!114 &7900897478743553305
 MonoBehaviour:

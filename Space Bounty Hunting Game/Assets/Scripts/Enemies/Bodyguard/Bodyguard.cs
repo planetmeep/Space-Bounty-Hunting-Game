@@ -58,6 +58,7 @@ public class Bodyguard : MonoBehaviour, IKillable
     public int burstBullets;
     public float timeBetweenBullets;
     public float timeBetweenBursts;
+    public float reactionTime;
     private float currentBulletTimer;
     public float bulletRadius;
     private int shotsFired;
@@ -257,7 +258,7 @@ public class Bodyguard : MonoBehaviour, IKillable
                 }
                 break;
             case State.Attack:
-
+                targetVelocity = Vector3.zero;
                 if (seePlayer)
                 {
                     if (shotOnPlayer)
@@ -306,12 +307,12 @@ public class Bodyguard : MonoBehaviour, IKillable
     {
         if (nextState != AIState)
         {
+            targetVelocity = Vector3.zero;
             switch (nextState)
             {
                 case State.Idle:
                     AIPath.enabled = false;
                     hasSeenPlayer = false;
-                    targetVelocity = Vector3.zero;
                     timeElapsed = 0f;
                     break;
                 case State.Search:
@@ -319,7 +320,6 @@ public class Bodyguard : MonoBehaviour, IKillable
                     AIPath.enabled = true;
                     break;
                 case State.Scan:
-                    targetVelocity = Vector3.zero;
                     AIPath.enabled = false;
                     hasSeenPlayer = false;
                     timeElapsed = 0f;
@@ -328,9 +328,8 @@ public class Bodyguard : MonoBehaviour, IKillable
                 case State.Attack:
                     AIPath.enabled = false;
                     hasSeenPlayer = true;
-                    targetVelocity = Vector3.zero;
                     currentBulletTimer = 0f;
-                    currentBulletTimer = timeBetweenBullets;
+                    currentBulletTimer = reactionTime;
                     break;
             }
         }
@@ -449,7 +448,7 @@ public class Bodyguard : MonoBehaviour, IKillable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("SpaceStationWall") && wandering) 
+        if ((collision.collider.CompareTag("SpaceStationWall") || collision.collider.CompareTag("Door")) && wandering) 
         {
             lookVector = Vector3.Reflect(lookVector, collision.contacts[0].normal);
             lookAngle = Mathf.Atan2(lookVector.y, lookVector.x) * Mathf.Rad2Deg;
