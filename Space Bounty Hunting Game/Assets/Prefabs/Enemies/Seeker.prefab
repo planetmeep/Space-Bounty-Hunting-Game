@@ -76,10 +76,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1851828395
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 26600091a9a19d747b63bc07b4e4f40e, type: 3}
-  m_Color: {r: 1, g: 0.85882354, b: 0.23921569, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,6 +135,7 @@ MonoBehaviour:
   maxBulletDistance: 50
   shipCollider: {fileID: 695719911548016271}
   projectileLayer: 9
+  randomROF: 0
 --- !u!114 &4405922759847899843
 MonoBehaviour:
   m_ObjectHideFlags: 0

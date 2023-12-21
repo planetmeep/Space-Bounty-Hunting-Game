@@ -20,7 +20,7 @@ public class BaseEnemy : MonoBehaviour, IHittable
     protected void Start()
     {
         // Assuming there's only one player and it's tagged as "Player"
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = GameObject.FindGameObjectWithTag("PlayerShip").transform;
         if (playerTransform == null)
         {
             Debug.LogError("Player not found!");

@@ -131,7 +131,8 @@ public class Bodyguard : MonoBehaviour, IKillable
         if (killableScript.isDead || !PlayerControlModes.instance.playerGround.activeSelf) return;
 
         seePlayer = SeePlayer(viewRaycastDistance, fieldOfViewAngle, lookVector);
-        shotOnPlayer = seePlayer ? HasShotOnPlayer(viewRaycastDistance, lookVector) : false;
+        shotOnPlayer = seePlayer ? HasShotOnPlayer(viewRaycastDistance, lookVector): false;
+        lookVector = (seePlayer || shotOnPlayer) ? (playerTransform.transform.position - transform.position).normalized : lookVector; 
 
         bool newWalking = false;
         bool running = false;
@@ -213,7 +214,6 @@ public class Bodyguard : MonoBehaviour, IKillable
                     }
                     else
                     {
-
                         searchPoint.transform.position = playerTransform.position;
                         SwitchState(State.Search);
                     }
@@ -326,7 +326,6 @@ public class Bodyguard : MonoBehaviour, IKillable
                     StartCoroutine(LookRandom(0.25f));
                     break;
                 case State.Attack:
-                    lookVector = (playerTransform.transform.position - transform.position).normalized;
                     AIPath.enabled = false;
                     hasSeenPlayer = true;
                     targetVelocity = Vector3.zero;
@@ -411,8 +410,8 @@ public class Bodyguard : MonoBehaviour, IKillable
         {
             RaycastHit2D upperHit = Physics2D.Raycast(transform.position, Quaternion.Euler(0, 0, i) * (direction.normalized), distance, ~visionIgnoreLayers);
             RaycastHit2D lowerHit = Physics2D.Raycast(transform.position, Quaternion.Euler(0, 0, -i) * (direction.normalized), distance, ~visionIgnoreLayers);
-            Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, i) * (direction.normalized) * 1);
-            Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, -i) * (direction.normalized) * 1);
+            Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, i) * (direction.normalized) * viewRaycastDistance);
+            Debug.DrawRay(transform.position, Quaternion.Euler(0, 0, -i) * (direction.normalized) * viewRaycastDistance);
             if (upperHit && (upperHit.collider.CompareTag("Player"))) return true;
             if (lowerHit && (lowerHit.collider.CompareTag("Player"))) return true;
         }
@@ -422,16 +421,22 @@ public class Bodyguard : MonoBehaviour, IKillable
 
     private bool HasShotOnPlayer(float distance, Vector3 direction) 
     {
-        RaycastHit2D circlehit = Physics2D.CircleCast(transform.position, bulletRadius, (direction.normalized), distance, ~visionIgnoreLayers);
-        RaycastHit2D rayhit = Physics2D.Raycast(transform.position, (direction.normalized), distance, ~visionIgnoreLayers);
-        Debug.DrawRay(transform.position, direction.normalized, Color.green);
-        if (circlehit && (circlehit.collider.CompareTag("Player"))) 
+        RaycastHit2D circlehit = Physics2D.CircleCast(transform.position, bulletRadius, (playerTransform.position - transform.position).normalized, distance, ~visionIgnoreLayers);
+        RaycastHit2D rayhit = Physics2D.Raycast(transform.position, (playerTransform.position - transform.position).normalized, distance, ~visionIgnoreLayers);
+
+        Debug.DrawRay(transform.position, (playerTransform.position - transform.position).normalized, Color.green);
+
+
+        if (!rayhit || (!rayhit.collider.CompareTag("Player")))
         {
-            if (rayhit && (rayhit.collider.CompareTag("Player"))) 
-            {
-                return true;
-            }
+            return false;
         }
+
+        if (circlehit && (circlehit.collider.CompareTag("Player")))
+        {
+            return true;
+        }
+
         return false;
     }
 
