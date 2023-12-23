@@ -61,7 +61,8 @@ public class UnseenCover : MonoBehaviour
         exhausted = true;
         foreach (GameObject enemy in enemyList) 
         {
-            ChangeEnemyVisibility(enemy, true);
+            //ChangeEnemyVisibility(enemy, true);
+            enemy.SetActive(true);
         }
         //col.enabled = false;
         TriggerConnectors();
@@ -93,7 +94,8 @@ public class UnseenCover : MonoBehaviour
             if (!enemyList.Contains(collision.gameObject))
             {
                 enemyList.Add(collision.gameObject);
-                ChangeEnemyVisibility(collision.gameObject, false);
+                //ChangeEnemyVisibility(collision.gameObject, false);
+                collision.gameObject.SetActive(false);
             }
         }
     }

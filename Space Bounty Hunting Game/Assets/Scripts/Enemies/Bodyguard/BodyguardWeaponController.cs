@@ -9,7 +9,6 @@ public class BodyguardWeaponController : MonoBehaviour
     public SpriteRenderer gunSprite;
     public GroundGuns groundGuns;
     public Vector3 lookVector;
-    public LayerMask ignoreLayerMask;
 
     private void Start()
     {

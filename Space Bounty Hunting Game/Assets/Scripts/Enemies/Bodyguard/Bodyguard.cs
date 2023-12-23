@@ -97,6 +97,7 @@ public class Bodyguard : MonoBehaviour, IKillable
     // Start is called before the first frame update
     void Start()
     {
+        lookVector = transform.up;
         lerpTimer = 0f;
         AIPath.enabled = false;
         hasSeenPlayer = false;

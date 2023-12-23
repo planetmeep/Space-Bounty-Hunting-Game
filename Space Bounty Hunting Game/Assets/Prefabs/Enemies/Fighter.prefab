@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 6564523260906340661}
   - component: {fileID: 2307103991503232386}
   - component: {fileID: 4943448605738769631}
-  - component: {fileID: 4405922759847899843}
-  - component: {fileID: 126945947111581481}
+  - component: {fileID: -4753272434895467352}
   - component: {fileID: 695719911548016271}
   m_Layer: 6
-  m_Name: Seeker
+  m_Name: Fighter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,7 +135,7 @@ MonoBehaviour:
   shipCollider: {fileID: 695719911548016271}
   projectileLayer: 9
   randomROF: 0
---- !u!114 &4405922759847899843
+--- !u!114 &-4753272434895467352
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,36 +144,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7843920963659832819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 726a5943f59b62c4481a5cfe61bcd77b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9029e615d895b68468d97d2dc50bcb38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  mainGuns: {fileID: 4943448605738769631}
-  detectionRadius: 50
-  WeaponsRadius: 10
-  stopFollowRadius: 4
-  playerTransform: {fileID: 0}
-  explosionPrefab: {fileID: 2196576137307728001, guid: c41533633c9d81546a50e35636735bb5, type: 3}
-  hitsoundMaterial: 0
-  engines: {fileID: 126945947111581481}
-  rb: {fileID: 2307103991503232386}
---- !u!114 &126945947111581481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7843920963659832819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14802ab23ef30d246a6814dd1607c3ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrusterParticles: {fileID: 0}
-  velocityRandomness: 1
-  maxVelocity: 6
-  thrustPower: 10
-  brakeFactor: 0.9
+  roamer: 0
+  rb: {fileID: 0}
+  viewRaycastDistance: 0
+  bulletRadius: 0
+  aimTime: 0
+  viewAngle: 0
+  visionIgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!61 &695719911548016271
 BoxCollider2D:
   m_ObjectHideFlags: 0
