@@ -15,6 +15,7 @@ TagManager:
   - Door
   - UnseenCover
   - UnseenConnector
+  - Asteroid
   layers:
   - Default
   - TransparentFX
