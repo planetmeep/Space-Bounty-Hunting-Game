@@ -55,8 +55,7 @@ public class Asteroid : MonoBehaviour, IHittable
 
     private void AsteroidDie(Vector2 hitPoint) 
     {
-        Debug.Log((int)asteroidSize);
-        AudioManager.instance.ResetPlaySound("Explosion");
+        AudioManager.instance.PlayWithDistance("Explosion", transform.position);
         Instantiate(explosionPrefab, hitPoint, Quaternion.identity);
         if ((int)asteroidSize > 0) 
         {
@@ -73,7 +72,7 @@ public class Asteroid : MonoBehaviour, IHittable
 
     public void OnHit(Projectile projectile, Vector2 hitPoint, Quaternion hitDirection)
     {
-        AudioManager.instance.PlayImpactSound(hitsoundMaterial);
+        AudioManager.instance.PlayImpactWithDistance(hitsoundMaterial, transform.position);
         asteroidHP -= projectile.damageValue;
 
         if (asteroidHP <= 0)

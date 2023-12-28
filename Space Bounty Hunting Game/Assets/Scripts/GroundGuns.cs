@@ -18,7 +18,7 @@ public class GroundGuns : MonoBehaviour
     // Update is called once per frame
     public void Shoot(Vector3 direction, Quaternion angle)
     {
-        AudioManager.instance.PlaySound(weaponSound);
+        AudioManager.instance.PlayWithDistance(weaponSound, transform.position);
         FireBullet(direction, angle);
         muzzleFlash.Play();
         ScreenShake.Instance.ShakeCamera(0.2f, 0.125f);

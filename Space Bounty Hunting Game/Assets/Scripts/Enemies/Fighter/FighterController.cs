@@ -21,6 +21,12 @@ public class FighterController : MonoBehaviour, IKillable
     private Vector3 aimVelocity = Vector3.zero;
     private Vector3 obstacleNormal = Vector3.zero;
     private CircleCollider2D circleCollider;
+    public float timeBetweenBullets;
+    public float timeBetweenBursts;
+    private float currentBulletTimer;
+    public int burstBullets;
+    private int shotsFired;
+    private float shootTimeElapsed;
     private float colliderRadius;
     private Transform playerTransform;
     private States AIState;
@@ -40,6 +46,9 @@ public class FighterController : MonoBehaviour, IKillable
     // Start is called before the first frame update
     void Start()
     {
+        currentBulletTimer = timeBetweenBullets;
+        shotsFired = 0;
+        shootTimeElapsed = 0f;
         circleCollider = GetComponent<CircleCollider2D>();
         colliderRadius = circleCollider.radius;
         lookVector = transform.up;
@@ -54,7 +63,6 @@ public class FighterController : MonoBehaviour, IKillable
     // Update is called once per frame
     void Update()
     {
-        print(AIState);
         seePlayer = SeePlayer();
         if (seePlayer) searchPoint.transform.position = playerTransform.position;
 
@@ -64,6 +72,29 @@ public class FighterController : MonoBehaviour, IKillable
         //lookVector = (playerTransform.transform.position - transform.position).normalized;
 
         //obstacleInWay = SeeObstacle(obstacleRaycastDistance);
+
+        if (seePlayer)
+        {
+            if (shootTimeElapsed <= currentBulletTimer)
+            {
+                shootTimeElapsed += Time.deltaTime;
+            }
+            else
+            {
+                shotsFired++;
+                if (shotsFired == burstBullets) 
+                {
+                    currentBulletTimer = timeBetweenBullets + timeBetweenBursts;
+                    shotsFired = 0;
+                }
+                else 
+                {
+                    currentBulletTimer = timeBetweenBullets;
+                }
+                weaponController.Fire();
+                shootTimeElapsed = 0;
+            }
+        }
 
         switch (AIState)
         {
@@ -236,10 +267,11 @@ public class FighterController : MonoBehaviour, IKillable
         {
             if (finalWeights[i] > lastWeight) 
             {
-                lastWeight = finalWeights[i];
-                targetDirection = Directions.eightDirections[i] * finalWeights[i];
+                //lastWeight = finalWeights[i];
+                //targetDirection = Directions.eightDirections[i] * finalWeights[i];
+
+                targetDirection += Directions.eightDirections[i] * finalWeights[i];
             }
-            //targetDirection += Directions.eightDirections[i] * finalWeights[i];
         }
         targetDirection.Normalize();
 

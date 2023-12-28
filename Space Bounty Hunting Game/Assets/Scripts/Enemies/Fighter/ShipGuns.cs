@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShipGuns : MonoBehaviour
 {
+    [SerializeField] private string shotSound;
     [SerializeField] private GameObject bulletPrefab; // Drag your bullet prefab here in the inspector
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private float rateOfFire = 5f; // Bullets per second
@@ -30,9 +31,15 @@ public class ShipGuns : MonoBehaviour
     {
         if (Time.time - lastShootTime > 1/currentROF) // Check if enough time has passed since the last shot
         {
-            AudioManager.instance.PlaySound("PlayerShipShot");
+            AudioManager.instance.PlayWithDistance(shotSound, transform.position);
             FireBullet(transform.up, transform.rotation);
         }
+    }
+
+    public void ShootUntimed() 
+    {
+        AudioManager.instance.PlayWithDistance(shotSound, transform.position);
+        FireBullet(transform.up, transform.rotation);
     }
 
     public void ShootAt(Vector2 targetPosition)

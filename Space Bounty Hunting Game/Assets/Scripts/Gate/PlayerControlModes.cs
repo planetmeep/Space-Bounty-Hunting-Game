@@ -39,6 +39,7 @@ public class PlayerControlModes : MonoBehaviour
         virtualCamera.m_Lens.OrthographicSize = groundCameraSize;
         playerShip.transform.position = shipPausePoint;
         playerShip.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        playerShip.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         playerShip.transform.rotation = Quaternion.Euler(0, 0, -180);
         playerShip.GetComponent<ShipController>().DisableControls();
     }
@@ -49,6 +50,7 @@ public class PlayerControlModes : MonoBehaviour
         playerGround.SetActive(false);
         virtualCamera.Follow = playerShip.transform;
         virtualCamera.m_Lens.OrthographicSize = shipCameraSize;
+        playerShip.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         playerShip.GetComponent<ShipController>().controlsActive = true;
     }
 }

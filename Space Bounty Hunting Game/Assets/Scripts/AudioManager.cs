@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
 
     // Singleton
     public static AudioManager instance = null;
+    public float maxDistance;
     public int startingSongIndex = 0;
 
     private void Awake()
@@ -60,6 +61,13 @@ public class AudioManager : MonoBehaviour
         }
         return currentSound.audioSource;
     }
+
+    public Sound GetCurrentSound(string name) 
+    {
+        Sound currentSound = Array.Find(sounds, sound => sound.soundName == name);
+        return currentSound;
+    }
+
     public void PlaySound(string name) 
     {
         GetAudioSource(name).Play();
@@ -73,6 +81,25 @@ public class AudioManager : MonoBehaviour
     public void StopSound(string name)
     {
         GetAudioSource(name).Stop();
+    }
+
+    public void PlayWithDistance(string name, Vector3 position) 
+    {
+        float distance = Vector3.Distance(transform.position, position);
+        GetAudioSource(name).volume = Mathf.Lerp(GetCurrentSound(name).volume, 0, distance / maxDistance);
+        GetAudioSource(name).Stop();
+        PlaySound(name);
+    }
+
+    public void PlayImpactWithDistance(HitsoundMaterials material, Vector3 position)
+    {
+        string materialName = material.ToString();
+        float distance = Vector3.Distance(transform.position, position);
+        print(Mathf.Lerp(GetAudioSource(materialName + "Impact").volume, 0, distance / maxDistance));
+        GetAudioSource(materialName + "Impact").volume = Mathf.Lerp(GetCurrentSound(materialName + "Impact").volume, 0, distance / maxDistance);
+        GetAudioSource(materialName + "Impact").pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+        GetAudioSource(materialName + "Impact").Stop();
+        GetAudioSource(materialName + "Impact").Play();
     }
 
     public void PlayImpactSound(HitsoundMaterials material) 

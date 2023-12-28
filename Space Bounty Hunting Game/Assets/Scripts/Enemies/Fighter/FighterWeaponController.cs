@@ -16,7 +16,7 @@ public class FighterWeaponController : MonoBehaviour
 
     public void Fire()
     {
-        shipGuns.Shoot();
+        shipGuns.ShootUntimed();
     }
 
     public void SetLookVector(Vector3 vector)
